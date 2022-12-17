@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Dimitris Panagopoulos <i>(Δημήτρης Παναγόπουλος)</i>"
+title: "About"
 excerpt: ""
 author_profile: true
 redirect_from:

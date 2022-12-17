@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Dimitris Panagopoulos"
+title                    : "Dimitris Panagopoulos <i>(Δημήτρης Παναγόπουλος)</i>"
 title_separator          : "-"
 name                     : &name "Dimitris Panagopoulos"
 description              : &description "PhD Student at Cranfield University"
