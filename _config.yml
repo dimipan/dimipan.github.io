@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Dimitris Panagopoulos <i>(Δημήτρης Παναγόπουλος)</i>"
 title_separator          : "-"
 name                     : &name "Dimitris Panagopoulos"
-description              : &description "PhD Student at Cranfield University"
+description              : &description "Ph.D. Student at Cranfield University"
 url                      : https://dimipan.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "dimipan/dimipan.github.io"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Dimitris Panagopoulos"
   avatar           : "profile.png"
-  bio              : "PhD student at Cranfield University in Human-Drone Teaming for Autonomous Rescue"
+  bio              : "Ph.D. student at Cranfield University in Human-Drone Teaming for Autonomous Rescue"
   location         : "Cranfield, Bedfordshire"
   employer         :
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
