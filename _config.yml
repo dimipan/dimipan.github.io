@@ -82,11 +82,11 @@ analytics:
 author:
   name             : "Dimitris Panagopoulos"
   avatar           : "profile.png"
-  bio              : "Ph.D. student at Cranfield University in Human-Drone Teaming for Autonomous Rescue"
+  bio              : "Ph.D. Student at Cranfield University in Human-Drone Teaming for Autonomous Rescue"
   location         : "Cranfield, Bedfordshire"
   employer         :
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  googlescholar    : #"http://yourfullgooglescholarurl.com"
+  googlescholar    : "https://scholar.google.com/citations?user=qQOGpdoAAAAJ&hl=en"
   email            : "d.panagopoulos@cranfield.ac.uk"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
@@ -115,9 +115,9 @@ author:
   xing             :
   youtube          :
   wikipedia        :
-  google scholar   : "https://scholar.google.com/citations?user=qQOGpdoAAAAJ&hl=en"
 
 
+  
 # Reading Files
 include:
   - .htaccess
