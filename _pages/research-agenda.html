@@ -1,0 +1,809 @@
+---
+layout: none
+permalink: /research-agenda/
+title: "Research Agenda"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autonomous Knowledge Acquisition — The Research Agenda of Dimitris Panagopoulos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface-raised: #1a1a26;
+  --border: #2a2a3a;
+  --text: #e8e6e3;
+  --text-dim: #9a9aaa;
+  --text-muted: #6a6a7a;
+  --accent: #4ecdc4;
+  --accent-warm: #ff6b6b;
+  --accent-gold: #f7d794;
+  --accent-purple: #a29bfe;
+  --accent-blue: #74b9ff;
+  --gradient-main: linear-gradient(135deg, #4ecdc4 0%, #a29bfe 50%, #ff6b6b 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(78, 205, 196, 0.3);
+  color: #fff;
+}
+
+/* --- NAV --- */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 2rem;
+}
+nav .nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav .logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+nav .nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-left: 1.5rem;
+  transition: color 0.3s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+
+/* --- HERO --- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(78,205,196,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 30%, rgba(162,155,254,0.05) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(255,107,107,0.04) 0%, transparent 50%);
+  animation: drift 20s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-2%, 2%) rotate(1deg); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+.hero h1 .gradient-text {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.7s;
+}
+.hero .author-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.9s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- MAIN CONTENT --- */
+.content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+/* Section Headers */
+.section-header {
+  margin: 5rem 0 2.5rem;
+  padding-top: 2rem;
+}
+.section-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+/* Prose */
+.content p {
+  margin-bottom: 1.3rem;
+  color: var(--text);
+}
+.content p.lead {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+/* Callout Boxes */
+.callout {
+  border-left: 3px solid var(--accent);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  background: var(--surface);
+  border-radius: 0 8px 8px 0;
+  margin: 2rem 0;
+}
+.callout.warm { border-left-color: var(--accent-warm); }
+.callout.purple { border-left-color: var(--accent-purple); }
+.callout.gold { border-left-color: var(--accent-gold); }
+.callout .callout-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.callout .callout-label.teal { color: var(--accent); }
+.callout .callout-label.warm { color: var(--accent-warm); }
+.callout .callout-label.purple { color: var(--accent-purple); }
+.callout .callout-label.gold { color: var(--accent-gold); }
+.callout p:last-child { margin-bottom: 0; }
+
+/* Pillar Cards */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.pillar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.pillar-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.pillar-card .pillar-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+.pillar-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.pillar-card .pillar-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.pillar-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 0; }
+
+/* Work Entries */
+.work-entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+}
+.work-entry .work-meta {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+.work-entry .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(78,205,196,0.1);
+  color: var(--accent);
+  border: 1px solid rgba(78,205,196,0.2);
+}
+.work-entry .badge.warm {
+  background: rgba(255,107,107,0.1);
+  color: var(--accent-warm);
+  border-color: rgba(255,107,107,0.2);
+}
+.work-entry .badge.purple {
+  background: rgba(162,155,254,0.1);
+  color: var(--accent-purple);
+  border-color: rgba(162,155,254,0.2);
+}
+.work-entry .badge.gold {
+  background: rgba(247,215,148,0.1);
+  color: var(--accent-gold);
+  border-color: rgba(247,215,148,0.2);
+}
+.work-entry .badge.blue {
+  background: rgba(116,185,255,0.1);
+  color: var(--accent-blue);
+  border-color: rgba(116,185,255,0.2);
+}
+.work-entry h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+.work-entry p { color: var(--text-dim); font-size: 0.95rem; }
+.work-entry ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+.work-entry ul li { color: var(--text-dim); font-size: 0.93rem; margin-bottom: 0.3rem; }
+
+/* Flow Diagram */
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 3rem 0;
+}
+.flow-node {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem 1.8rem;
+  text-align: center;
+  width: 100%;
+  max-width: 520px;
+}
+.flow-node h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.flow-node p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0; }
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  padding: 0.3rem 0;
+}
+
+/* Blockquote */
+blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--text);
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+  margin: 2.5rem 0;
+  line-height: 1.6;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 4rem 0;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .content { padding: 0 1.2rem 4rem; }
+  nav .nav-links { display: none; }
+}
+
+/* Inline emphasis */
+strong { color: #fff; font-weight: 600; }
+em { color: var(--accent-gold); font-style: italic; }
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: var(--surface-raised);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+/* Transfer table */
+.transfer-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+}
+.transfer-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: left;
+  padding: 0.8rem 1rem;
+  border-bottom: 2px solid var(--border);
+}
+.transfer-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  vertical-align: top;
+}
+.transfer-table tr:hover td { color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">D.Panagopoulos // PhD</div>
+    <div class="nav-links">
+      <a href="#problem">The Problem</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#pillars">Pillars</a>
+      <a href="#works">Works</a>
+      <a href="#transfer">Transfer</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">PhD Research Agenda</div>
+    <h1>How Should Autonomous Systems <span class="gradient-text">Acquire, Monitor, and Act on Knowledge</span> from Language-Rich Environments?</h1>
+    <p class="subtitle">A programme of work developing the instrumentation, grounding, and behavioural control layers that enable autonomous agents to gather mission-critical information through dialogue and human interaction — efficiently, safely, and adaptively.</p>
+    <p class="author-line">Dimitris Panagopoulos &nbsp;·&nbsp; Cranfield University &nbsp;·&nbsp; EPSRC iCASE with Thales UK</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ============================================== -->
+  <!--  PART 1: THE PROBLEM                           -->
+  <!-- ============================================== -->
+  <div class="section-header" id="problem">
+    <div class="section-number">Part I</div>
+    <h2>What Is the Problem?</h2>
+  </div>
+
+  <p class="lead">Autonomous systems are increasingly expected to operate in environments where the information they need is not embedded in sensor readings — it is held by people, expressed in natural language, and scattered across unstructured verbal reports. Yet these systems have no principled way to <strong>acquire</strong> that knowledge through conversation, <strong>monitor</strong> whether the conversation is productive, or <strong>act on</strong> what they learn in real-time.</p>
+
+  <p>Consider a search-and-rescue robot arriving at a disaster scene. Sensor data tells it about terrain and obstacles, but the most actionable intelligence — where victims were last seen, which routes are blocked, what hazards have emerged — lives in the minds of witnesses, first responders, and bystanders. This information must be <em>elicited through dialogue</em>, not simply perceived.</p>
+
+  <p>SAR is the motivating domain, but the underlying challenge is universal. Any autonomous system that must gather structured knowledge from humans — medical intake robots, disaster coordinators, investigative agents, field survey systems — faces the same constellation of problems:</p>
+
+  <div class="callout">
+    <div class="callout-label teal">The Core Gap</div>
+    <p><strong>There is no integrated framework for how autonomous agents should conduct, monitor, and adapt information-seeking conversations with humans</strong> — one that spans from understanding natural language reports, through measuring conversational efficiency in real time, to controlling the agent's questioning behaviour under domain constraints.</p>
+  </div>
+
+  <p>This gap sits at the intersection of multiple research frontiers — human-robot interaction, reinforcement learning, dialogue systems, representation engineering, and cognitive science — none of which, individually, provides a complete answer.</p>
+
+  <!-- ============================================== -->
+  <!--  PART 2: WHY IT MATTERS                        -->
+  <!-- ============================================== -->
+  <div class="section-header">
+    <div class="section-number">Part II</div>
+    <h2>Why Is This Necessary?</h2>
+  </div>
+
+  <p>The necessity is both <strong>practical</strong> and <strong>scientific</strong>.</p>
+
+  <div class="callout warm">
+    <div class="callout-label warm">Practical Necessity</div>
+    <p>In time-critical operations, wasted interview turns cost lives. An agent that cannot detect it is asking redundant questions, or cannot adapt its questioning strategy when information flow degrades, or cannot translate a verbal hazard report into a navigational constraint, is not just inefficient — it is operationally dangerous. Human interviewers rely on decades of implicit feedback (micro-expressions, tonal shifts, meta-communication) to regulate the <em>flow</em> of information. Autonomous systems have none of this. They need <strong>explicit, computational substitutes</strong> — signals that monitor whether information is accumulating productively, not signals that diagnose the human's internal state.</p>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-label purple">Scientific Necessity</div>
+    <p>Across AI and robotics, there is a missing measurement and control layer for information-seeking dialogue. Navigation has pose estimation and SLAM. Manipulation has force-torque sensing. <strong>Dialogue-based knowledge acquisition has no equivalent telemetry.</strong> There are no standard turn-level signals for "how much useful information remains," "is this conversation stalling," or "is the agent's questioning behaviour protocol-compliant." Without such signals, no closed-loop control is possible — and without closed-loop control, autonomous dialogue remains open-loop and fragile.</p>
+  </div>
+
+  <p>Furthermore, the field faces a <strong>coupling problem</strong>. Most systems that use language embed it directly inside the learning or planning loop, entangling language-understanding failures with control failures and making diagnosis, update, and redeployment expensive. And most approaches to behavioural control in dialogue offer only coarse-grained, static guidance — inadequate for the multi-objective, multi-turn, protocol-constrained conversations that characterise professional information gathering.</p>
+
+  <!-- ============================================== -->
+  <!--  PART 3: THE THESIS                            -->
+  <!-- ============================================== -->
+  <div class="section-header" id="thesis">
+    <div class="section-number">Part III</div>
+    <h2>The Thesis Statement</h2>
+  </div>
+
+  <blockquote>An autonomous agent can efficiently, safely, and adaptively gather mission-critical knowledge from humans through dialogue if three capabilities are developed as modular, interoperable layers: (1) a measurement layer that provides turn-level observables for conversational progress and health; (2) a grounding layer that translates streaming natural language into control-relevant signals decoupled from the decision-maker; and (3) a behavioural control layer that dynamically steers questioning strategy under multi-objective constraints using the measurement layer as feedback.</blockquote>
+
+  <p>The key architectural insight is <strong>separation of concerns</strong>. Rather than building a monolithic "dialogue agent," the PhD decomposes autonomous knowledge acquisition into independently validated layers that can be combined, replaced, and transferred across domains and control paradigms.</p>
+
+  <!-- ============================================== -->
+  <!--  PART 4: THE THREE PILLARS                     -->
+  <!-- ============================================== -->
+  <div class="section-header" id="pillars">
+    <div class="section-number">Part IV</div>
+    <h2>The Three Pillars — How We Address It</h2>
+  </div>
+
+  <p>The PhD is structured around three interlocking research pillars. Each addresses a distinct research question, produces distinct contributions, and feeds the others.</p>
+
+  <div class="pillar-grid">
+
+    <div class="pillar-card">
+      <div class="pillar-tag">Pillar 1 — Measurement</div>
+      <div class="pillar-icon">📡</div>
+      <h3>Dialogue Telemetry: Instrumenting Conversations</h3>
+      <p><strong>RQ:</strong> What turn-level observables can instrument schema-grounded information-gathering dialogues so that progress and stalling can be monitored online?</p>
+      <p style="margin-top:0.8rem"><strong>What:</strong> Dialogue Telemetry (DT) — a framework producing two model-agnostic signals after each question-answer exchange: a <em>Progress Estimator</em> (PE) quantifying residual information potential per knowledge category (including an information-theoretic bits-based variant), and a <em>Stalling Index</em> (SI) detecting throughput degradation via repeated category probing with semantically similar, low-gain responses.</p>
+      <p style="margin-top:0.8rem"><strong>Why it's needed:</strong> No existing turn-level measurement layer is both model-agnostic and actionable. Prior work focuses on pre-turn question selection or post-hoc breakdown detection. DT fills the gap with <em>after-each-turn</em> telemetry designed for online monitoring and closed-loop control.</p>
+      <p style="margin-top:0.8rem"><strong>How:</strong> PE uses schema-grounded informativeness rates, completeness tracking, and semantic embeddings to estimate "how much useful information remains now" per category. SI fuses discrete repetition counts with embedding-space cosine similarity in a trailing window, flagging observable failure signatures without requiring causal diagnosis. Crucially, DT monitors <em>information flow</em> — whether knowledge is accumulating — not the human's internal cognitive or emotional state. Stalling may arise from stress, confusion, knowledge exhaustion, or simply poor questioning; DT detects the symptom and leaves causal attribution outside its scope. Both signals are validated in SAR-inspired interview simulations and integrated as RL policy observations.</p>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-tag">Pillar 2 — Grounding</div>
+      <div class="pillar-icon">🔗</div>
+      <h3>LUCIFER: Language-to-Signal Middleware</h3>
+      <p><strong>RQ:</strong> Can online language grounding be externalised from a decision-maker via a stable signal contract, while still yielding safe and efficient behaviour?</p>
+      <p style="margin-top:0.8rem"><strong>What:</strong> LUCIFER (Language Understanding and Context-Infused Framework for Exploration and Behaviour Refinement) — a training-decoupled middleware that converts streaming verbal reports and client-agnostic telemetry into four standardised control-relevant signals: policy priors, reward potentials, admissible-action constraints, and action predictions.</p>
+      <p style="margin-top:0.8rem"><strong>Why it's needed:</strong> Most systems couple language processing inside the learner/planner, creating redeployment burden and diagnostic opacity. Messy, self-correcting language from stressed humans requires semantic reasoning, not pattern-matching. The field needs a principled <em>interface boundary</em> between language understanding and decision-making.</p>
+      <p style="margin-top:0.8rem"><strong>How:</strong> A Context Extractor (RAG-augmented LLM) maps verbal reports to structured semantic objects; a Signal Contract transduces these into mathematical quantities. An optional Discovery service (Exploration Facilitator) predicts high-value information-gathering actions from telemetry alone. Validated with two structurally distinct clients (hierarchical RL and hybrid A*+heuristic planner), demonstrating client-agnosticism: grounding→safety, discovery→efficiency, combination→both.</p>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-tag">Pillar 3 — Behavioural Control</div>
+      <div class="pillar-icon">🎛️</div>
+      <h3>Steering Conversational Behaviour Under Constraints</h3>
+      <p><strong>RQ:</strong> How can we achieve fine-grained, adaptive, and interpretable behavioural control over multi-turn conversational AI for information-seeking dialogue under protocol constraints?</p>
+      <p style="margin-top:0.8rem"><strong>What:</strong> A systematic exploration of seven candidate control mechanisms for modulating interviewing behaviour — from Representation Engineering (RepE) with RL-controlled compositional concept weights, through hybrid sensor-actuator architectures, to lightweight Thompson Sampling bandits and RAG-based dynamic prompting — all evaluated against the same DT-based metrics.</p>
+      <p style="margin-top:0.8rem"><strong>Why it's needed:</strong> LLMs generate fluent text but offer limited mechanisms for controlling <em>how</em> they generate. Cognitive interviewing requires simultaneous balancing of openness, semantic novelty, probing depth, context reinstatement, and leading-tendency suppression — a compositional, dynamic, multi-turn control problem that no single existing method fully solves. The controlled variable is the agent's own questioning behaviour (strategy selection, category targeting, question phrasing), not the human's internal state. The steering policy regulates information flow by adapting what the agent does in response to observable flow signals, rather than by attempting to diagnose or modulate the interviewee's cognition.</p>
+      <p style="margin-top:0.8rem"><strong>How:</strong> The research formalises cognitive interviewing as a constrained MDP with DT signals as state observations and multi-objective rewards. Each approach makes different trade-offs between interpretability, sample efficiency, fine-grained control, and stability. The design space spans RepE activation steering, prompt engineering, latent action learning (CoLA), and RAG-based knowledge grounding — providing the community with a systematic map, not a single "best" solution.</p>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================== -->
+  <!--  PART 5: HOW THEY CONNECT                      -->
+  <!-- ============================================== -->
+  <div class="section-header">
+    <div class="section-number">Part V</div>
+    <h2>How the Pillars Interlock</h2>
+  </div>
+
+  <p>The three pillars are not independent papers stapled together — they form a <strong>closed-loop architecture</strong> for autonomous knowledge acquisition:</p>
+
+  <div class="flow-container">
+    <div class="flow-node">
+      <h4>Pillar 2 · Grounding (LUCIFER)</h4>
+      <p>Agent arrives at an information source. Language middleware converts streaming verbal reports into navigational constraints, reward potentials, and query predictions — all through a client-agnostic signal contract.</p>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node">
+      <h4>Pillar 1 · Measurement (Dialogue Telemetry)</h4>
+      <p>During the interview, DT instruments each turn. PE quantifies how much useful information remains per category. SI flags when questioning becomes unproductive. These signals are exposed as real-time observables.</p>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node">
+      <h4>Pillar 3 · Behavioural Control</h4>
+      <p>An RL policy (or bandit, or RAG system) consumes DT signals as state observations, selects the next questioning strategy and concept emphasis, and generates the next question — adapting dynamically to maximise information gain while maintaining protocol adherence.</p>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node" style="border-color: var(--accent);">
+      <h4>Closed Loop</h4>
+      <p>The response updates the DT state, which informs the next control decision. Grounded language from new verbal reports can arrive at any time, dynamically updating the agent's constraints and priorities mid-conversation.</p>
+    </div>
+  </div>
+
+  <p>This layered architecture mirrors mature control domains: Pillar 1 is the <em>sensor suite</em> (telemetry), Pillar 2 is the <em>perception layer</em> (language grounding), and Pillar 3 is the <em>controller</em> (behavioural policy). The contribution is not just each layer individually, but the demonstration that they compose into a functioning system.</p>
+
+  <div class="callout gold">
+    <div class="callout-label gold">The Evaluation Infrastructure Gap</div>
+    <p>Demonstrating the full closed loop requires an interviewee that <em>reacts</em> to how the agent asks questions. The current validation environment uses a static, pre-generated corpus — sufficient for component-level validation of DT and LUCIFER individually, but fundamentally unable to capture the interaction effect that makes adaptive steering meaningful: <strong>how you ask should change what you get back</strong>.</p>
+    <p style="margin-top:0.6rem">This is the classic controller-vs-plant problem. The PhD builds the controller; what was missing is a credible plant model. A collaborative MSc project (Summer 2026) is constructing a <strong>reactive, persona-configurable LLM interviewee simulator</strong> — grounded in distributional statistics from real task-oriented human communication — that exposes the same interface as the current static environment. If it succeeds, every downstream evaluation becomes stronger. If it partially succeeds, even approximate behavioural realism improves on deterministic lookup. If it fails entirely, the existing static corpus remains valid — all published results already use it. The intellectual contributions of the PhD stand independently of the simulator's fidelity; the simulator determines <em>how convincingly</em> the integration can be demonstrated, not <em>whether</em> the architecture works.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================== -->
+  <!--  PART 6: THE WORKS                             -->
+  <!-- ============================================== -->
+  <div class="section-header" id="works">
+    <div class="section-number">Part VI</div>
+    <h2>The Research Outputs</h2>
+  </div>
+
+  <p>Each pillar is realised through concrete, published or submitted works. Two additional pieces extend the programme into supporting capabilities.</p>
+
+  <!-- Work 1 -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge">Published · IEEE SMC 2024</span>
+      <span class="badge purple">Pillar 2 — Grounding</span>
+      <span class="badge gold">Foundation</span>
+    </div>
+    <h3>Selective Exploration and Information Gathering in Search and Rescue Using Hierarchical Learning Guided by Natural Language Input</h3>
+    <p>The foundational paper that established the architecture. Introduced the integration of LLMs with hierarchical RL for SAR, demonstrating how verbal inputs from human stakeholders can be transformed into actionable RL insights via an Information Space, Context Extractor, Strategic Decision Engine, and Attention Space. Showed that language-infused hierarchical agents outperform flat RL agents — especially in sparse-reward environments — and that domain-knowledge infusion via RAG produces properly grounded outputs.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Established that language-guided hierarchical decision-making is viable and that attention-based policy shaping from verbal inputs improves both performance and safety. Set up the Information Space formalism reused across all subsequent works.</li>
+    </ul>
+  </div>
+
+  <!-- Work 2 -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge warm">Submitted · IEEE Journal</span>
+      <span class="badge purple">Pillar 2 — Grounding</span>
+    </div>
+    <h3>LUCIFER: Grounding and Discovery Services for Language-Assisted Decision-Making — A Signal Contract Architecture</h3>
+    <p>The full maturation of the grounding layer. Formalises language grounding as training-decoupled middleware with a four-signal contract (priors, potentials, constraints, action predictions). Validates robustness on messy, self-correcting language (91-100% accuracy where pattern-matching baselines collapse to 20-36%), and demonstrates client-agnosticism with two structurally distinct downstream consumers. Introduces the Discovery service for telemetry-based query prediction.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Proved that language can be <em>externalised</em> from the decision-maker through a stable mathematical interface, enabling safe and efficient behaviour without embedding NLP inside the controller. The dual-client validation demonstrates the approach is architectural, not algorithm-specific.</li>
+    </ul>
+  </div>
+
+  <!-- Work 3 -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge warm">Submitted · IEEE Journal</span>
+      <span class="badge">Pillar 1 — Measurement</span>
+    </div>
+    <h3>Dialogue Telemetry: Turn-Level Instrumentation for Autonomous Information Gathering</h3>
+    <p>Defines and validates the measurement framework. Introduces PE (Progress Estimator) in two forms — heuristic expected-gain and Shannon-based expected information gain (bits) — and SI (Stalling Index) combining discrete repetition with semantic similarity analysis. Demonstrates that DT accurately distinguishes efficient from stalled dialogue traces (100% detection, 0% false positives in controlled scenarios) and improves RL policy performance when stalling carries operational costs.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Provided the <em>sensor suite</em> for the entire programme. PE and SI are the state observations consumed by all Pillar 3 control approaches. The ablation reveals that SI penalties help when stalling triggers failure (Condition B) but hinder when it doesn't (Condition A) — a nuanced finding about when telemetry should shape reward vs. merely inform observation.</li>
+    </ul>
+  </div>
+
+  <!-- Work 4 -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge warm">Submitted · IEEE Conference</span>
+      <span class="badge blue">Supporting — Priority Adaptation</span>
+    </div>
+    <h3>CA-MIQ: Context-Aware Max-Information Q-Learning for Priority-Driven Information Gain</h3>
+    <p>Addresses what happens <em>after</em> information is gathered: how does an agent adapt when mission priorities shift? Introduces a dual-critic RL framework where an intrinsic critic fuses state-novelty, information-location awareness, and real-time priority alignment, with a shift detector triggering transient exploration boosts and selective critic resets. Achieves nearly 4× higher mission success rates than baselines after priority shifts and 100% recovery where baselines fail.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Extends the Information Space formalism to handle <em>dynamic</em> priority orderings. Demonstrates that the information structures established in the foundational work can be made responsive to evolving mission context — a critical requirement for real-world deployment where "what matters" changes as new intelligence arrives.</li>
+    </ul>
+  </div>
+
+  <!-- Work 5 -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge gold">Draft</span>
+      <span class="badge blue">Supporting — Human Factors</span>
+    </div>
+    <h3>ITLI: An LLM-Derived Intrinsic Task-Load Index for Cognitive Load Estimation</h3>
+    <p>Bridges cognitive science and AI engineering. Proposes computing intrinsic cognitive load from textual information streams by having an LLM extract linguistically-grounded features (entity count, relation count, temporal/conditional clauses, quantitative constraints, token complexity) mapped to Sweller's element-interactivity scale. Offers a scalable, non-intrusive alternative to physiological sensors or subjective surveys.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Addresses the <em>human side</em> of human-robot teaming. If the agent can estimate how much cognitive bandwidth an upcoming information stream demands, it can pace delivery, defer handoffs, or raise autonomy. ITLI complements DT (which monitors conversation health) with a signal about the human's capacity to process what the agent communicates.</li>
+    </ul>
+  </div>
+
+  <!-- Work 6 -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge gold">Draft / Design Report</span>
+      <span class="badge warm">Pillar 3 — Behavioural Control</span>
+    </div>
+    <h3>Behavioural Control for Information-Seeking Dialogue: A Systematic Design Space Exploration</h3>
+    <p>The capstone design report. Formalises cognitive interviewing as a multi-objective constrained control problem and systematically maps seven candidate approaches spanning the full design space: (a) Original RepE with RL-controlled concept weights, (b) Hybrid RepE-Sensor + Prompt-Actuator, (c) RePS (enhanced vector identification with orthogonalisation), (d) CoLA (learned latent action codes), (e) Adaptive Style Modulation via Thompson Sampling, (f) Prompt-R1 (end-to-end RL prompt generation), and (g) RAG-Based Dynamic Prompting. Each is formalised as an MDP, with architectural diagrams, theoretical strengths/limitations, and connections to DT-based evaluation metrics.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Provides the <em>control layer</em> that consumes DT signals and actuates dialogue behaviour. Rather than advocating a single approach, it maps the full solution space — enabling principled empirical comparison. The shared DT-based evaluation framework (PE for information gain, SI for stalling, violation detection for protocol adherence) unifies assessment across approaches.</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================== -->
+  <!--  PART 7: BROADER TRANSFER                      -->
+  <!-- ============================================== -->
+  <div class="section-header" id="transfer">
+    <div class="section-number">Part VII</div>
+    <h2>Transfer Beyond SAR — Why This Matters Generally</h2>
+  </div>
+
+  <p>SAR is the testbed, not the boundary. Every contribution in this PhD addresses a <strong>general pattern</strong> that recurs wherever autonomous systems interact with language-rich, human-populated environments:</p>
+
+  <table class="transfer-table">
+    <thead>
+      <tr>
+        <th>Contribution</th>
+        <th>SAR Instance</th>
+        <th>General Pattern</th>
+        <th>Transfer Domains</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Dialogue Telemetry</strong> (PE + SI)</td>
+        <td>Monitoring witness interviews for stalling and information coverage</td>
+        <td>Turn-level instrumentation for any schema-grounded information-gathering dialogue</td>
+        <td>Medical intake, insurance claims, investigative journalism, customer support, educational tutoring</td>
+      </tr>
+      <tr>
+        <td><strong>Signal Contract</strong> (LUCIFER)</td>
+        <td>Converting hazard/victim reports into navigational constraints</td>
+        <td>Training-decoupled middleware for converting streaming language into control-relevant signals</td>
+        <td>Any robotic system receiving verbal instructions or reports — warehouse logistics, autonomous vehicles, agricultural robots</td>
+      </tr>
+      <tr>
+        <td><strong>Information Space + Priority Dynamics</strong> (CA-MIQ)</td>
+        <td>Adapting to shifting SAR mission priorities</td>
+        <td>Piecewise-stationary priority adaptation for information-directed exploration</td>
+        <td>Dynamic resource allocation, adaptive surveying, intelligence analysis, clinical triage prioritisation</td>
+      </tr>
+      <tr>
+        <td><strong>Behavioural Control Design Space</strong></td>
+        <td>Steering cognitive interview behaviour</td>
+        <td>Fine-grained, adaptive, interpretable control of LLM generation under multi-objective constraints</td>
+        <td>Any high-stakes conversational AI — therapy chatbots, negotiation agents, legal deposition assistants, educational dialogues</td>
+      </tr>
+      <tr>
+        <td><strong>ITLI</strong> (Cognitive Load Estimation)</td>
+        <td>Estimating operator cognitive load from mission reports</td>
+        <td>Non-intrusive cognitive bandwidth estimation from textual information streams</td>
+        <td>Adaptive UIs, variable autonomy, intelligent tutoring, accessibility systems</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout gold">
+    <div class="callout-label gold">The Unifying Principle</div>
+    <p>The PhD's deepest contribution is the <strong>recognition that autonomous knowledge acquisition from humans requires the same engineering discipline as physical control</strong>: you need sensors (DT), a perception layer (LUCIFER), and a controller (behavioural policy) — and they must be modular, composable, and independently validated. This architectural pattern transfers wholesale to any domain where agents must gather, monitor, and act on human-communicated knowledge.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================== -->
+  <!--  PART 8: WHAT IS NEW                           -->
+  <!-- ============================================== -->
+  <div class="section-header">
+    <div class="section-number">Part VIII</div>
+    <h2>What Didn't Exist Before</h2>
+  </div>
+
+  <p>To be precise about the new knowledge this PhD produces:</p>
+
+  <div class="callout">
+    <div class="callout-label teal">New Contributions</div>
+    <p><strong>1. Turn-level telemetry for goal-directed dialogue.</strong> PE and SI are the first model-agnostic, real-time signals designed for schema-grounded information gathering that work both as diagnostic readouts and as RL policy observations.</p>
+    <p style="margin-top:0.6rem"><strong>2. Training-decoupled language grounding via signal contracts.</strong> LUCIFER is the first middleware to formalise a client-agnostic mathematical interface between streaming language and heterogeneous decision-makers, validated across learning and non-learning paradigms.</p>
+    <p style="margin-top:0.6rem"><strong>3. Priority-adaptive information-gain exploration.</strong> CA-MIQ is the first information-gain-driven exploration strategy that responds to piecewise-stationary shifts in mission-level priorities.</p>
+    <p style="margin-top:0.6rem"><strong>4. Systematic design space for behavioural control of information-seeking dialogue.</strong> The seven-approach comparison, unified by DT-based evaluation metrics, provides the first systematic map of how to steer LLM questioning behaviour under multi-objective constraints.</p>
+    <p style="margin-top:0.6rem"><strong>5. LLM-based intrinsic cognitive load estimation.</strong> ITLI is the first attempt to computationally estimate element interactivity from textual information streams using LLMs.</p>
+  </div>
+
+  <div class="callout warm">
+    <div class="callout-label warm">What Is NOT Claimed</div>
+    <p>This PhD does not claim to have solved "the physics of dialogue" or created a universally optimal interviewing agent. It claims to have built <strong>practical, validated tools</strong> — telemetry signals, a grounding middleware, and a design space of controllers — that are useful, computable, principled, and transferable. The deeper formalisations (e.g., continuous manifold structure for dialogue dynamics) remain future work.</p>
+    <p style="margin-top:0.6rem">A critical distinction: <strong>this work regulates information flow, not human communicative capacity.</strong> The thesis formalisation includes a latent variable C(t) representing the human's effective transmission capacity, which can degrade under inappropriate querying. This is an empirically motivated abstraction drawn from neurocognitive and crisis-communication literature — not a variable the system claims to measure, estimate, or directly control. The Information Extraction Paradox (that urgency degrades the human's ability to provide information) motivates <em>why</em> adaptive strategy selection is necessary. DT and steering implement adaptation by monitoring observable information-flow symptoms (residual gaps, revisitation, low gain) and responding with strategy changes. Whether those strategy changes also benefit the human's internal state is a plausible hypothesis supported by the interviewing literature, but proving it would require validated models of how interviewer behaviour affects interviewee cognition — a question at the intersection of computational psycholinguistics and control theory that lies beyond the scope of this engineering-focused thesis. The system acts as a thermostat for information flow: it detects deviations from productive exchange and actuates strategy changes, without diagnosing why the deviation occurred.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================== -->
+  <!--  PART 9: THE HONEST FRAMING                    -->
+  <!-- ============================================== -->
+  <div class="section-header">
+    <div class="section-number">Part IX</div>
+    <h2>The Research Philosophy</h2>
+  </div>
+
+  <p>This PhD was driven by a conviction that <strong>autonomous systems need to become active participants in the knowledge-gathering process</strong>, not passive recipients of pre-processed data. Humans naturally seek help when facing uncertainty — they ask questions, interview witnesses, consult experts. Robots should do the same, and they should do it well.</p>
+
+  <p>The path was not linear. The early inspiration came from an analogy between dialogue dynamics and fluid flow — the idea that conversations have "gradients" toward information and "circulation" when stuck. But formalising that analogy fully would require mathematical machinery beyond the scope of a single PhD. Instead, the work pivoted to <strong>computational proxies</strong> — PE and SI — that capture the <em>functional intent</em> of those metaphors using information theory and embedding geometry. This is the tractable, validated path rather than the imaginative but shallow one.</p>
+
+  <p>A related pivot shaped the thesis's relationship with psychology. The Information Extraction Paradox draws on well-established findings from neurocognition and crisis communication: that stress impairs recall, that aggressive questioning can reduce information quality, that interaction style affects communicative capacity. These findings <em>motivate</em> the engineering architecture but are not claims the thesis sets out to prove. The system monitors information flow — observable patterns in what the interviewee says — not the human's latent cognitive or emotional state. It regulates the agent's own behaviour (which questions to ask, in what style, targeting which knowledge gaps) based on those observable patterns. This is a deliberate engineering stance: treat the human side of the channel with respect for its complexity, instrument what is observable, and control what is controllable — namely, the agent's own actions. Validated models of how interviewer behaviour affects interviewee cognition would enable a deeper, truly co-regulatory architecture; this thesis identifies that as a frontier rather than claiming to have reached it.</p>
+
+  <blockquote>The tools work. The deeper mathematics remains for the future. And that is a mature, honest research contribution.</blockquote>
+
+  <p>Each component was designed with a principle: <strong>build frameworks others can extend, not just deliverables for a contracted project</strong>. The DT signals are model-agnostic. The Signal Contract is client-agnostic. The behavioural control design space is approach-agnostic. This modularity is intentional — it is what makes the work transferable beyond SAR, beyond any single application domain, and beyond the lifetime of this PhD.</p>
+
+  <p>The same philosophy extends to the research infrastructure. In any multidisciplinary PhD, the researcher is effectively building both the controller <em>and</em> the plant model — a situation where, in most engineering research, one of these pre-exists. Recognising this, the evaluation infrastructure (a reactive, behaviourally grounded interviewee simulator) has been scoped as a self-contained collaborative project: the contributor builds the plant model without needing to understand the control theory, while the PhD researcher retains sole ownership of the intellectual contributions. This separation is deliberate — it mirrors the same modularity principle that governs the technical architecture itself.</p>
+
+  <p>The evaluation strategy reflects this scope honestly. Component-level validation (DT monitoring accuracy, LUCIFER grounding fidelity, steering policy performance) uses controlled simulation environments. Integration-level validation uses a reactive, persona-configurable simulator where different interviewee profiles present different information landscapes, and the steering policy must adapt its trajectory accordingly. This tests <strong>adaptive information-space navigation</strong> — the claim that DT-guided steering efficiently harvests available information across diverse interviewee types. It does not test whether steering regulates the human's internal capacity, which would require persona dynamics models that evolve in response to interviewer behaviour — a capability identified as immediate future work requiring validated computational models of interviewer–interviewee co-regulation.</p>
+
+  <div class="divider"></div>
+
+  <!-- ============================================== -->
+  <!--  CLOSING                                       -->
+  <!-- ============================================== -->
+  <div class="section-header">
+    <div class="section-number">Closing</div>
+    <h2>The Research Arc in One Sentence</h2>
+  </div>
+
+  <blockquote>This PhD develops the measurement, grounding, and control layers that enable autonomous agents to conduct, monitor, and adapt information-seeking conversations with humans — treating dialogue-based knowledge acquisition with the same engineering rigour applied to physical sensing and control.</blockquote>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Dimitris Panagopoulos · Cranfield University · Faculty of Engineering and Applied Science</p>
+  <p style="margin-top:0.3rem">EPSRC iCASE with Thales UK (EP/X52475X/1)</p>
+  <p style="margin-top:0.5rem; font-size:0.75rem; color:var(--text-muted);">This document serves as a research agenda and narrative backbone for viva preparation and academic exposition.</p>
+</div>
+
+</body>
+</html>
