@@ -13,20 +13,23 @@ title: "The Door That Closes Quietly"
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0f;
-  --surface: #12121a;
-  --surface-raised: #1a1a26;
-  --border: #2a2a3a;
-  --text: #e8e6e3;
-  --text-dim: #9a9aaa;
-  --text-muted: #6a6a7a;
-  --accent: #4ecdc4;
-  --accent-warm: #ff6b6b;
-  --accent-gold: #f7d794;
-  --accent-purple: #a29bfe;
-  --accent-blue: #74b9ff;
-  --essay-accent: var(--accent-warm);
-  --gradient-main: linear-gradient(135deg, #4ecdc4 0%, #a29bfe 50%, #ff6b6b 100%);
+  /* Book-like light theme */
+  --bg: #fcfbf8;            /* Off-white/cream like book paper */
+  --surface: #f5f3ee;       /* Marginally darker cream for cards */
+  --surface-raised: #ebe9e2; /* For hover states */
+  --border: #dfdad0;        /* Soft gray-brown for borders */
+  --text: #2c2b29;          /* Charcoal (easier on eyes than pure black) */
+  --text-dim: #5c5a55;      /* Medium gray for subtitles */
+  --text-muted: #8c8982;    /* Light gray for metadata */
+  
+  /* Accents left the same, slightly darkened if needed for contrast, 
+     but your current pastel accents usually look great on cream! */
+  --accent: #2bbbb2;
+  --accent-warm: #fc5c5c;
+  --accent-gold: #e5b95c;
+  --accent-purple: #8e85f0;
+  --accent-blue: #5baaf5;
+  --gradient-main: linear-gradient(135deg, #2bbbb2 0%, #8e85f0 50%, #fc5c5c 100%);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
