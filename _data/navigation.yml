@@ -20,6 +20,9 @@ main:
 
   - title: "Research Agenda"
     url: /research-agenda/
+  
+  - title: "Blog"
+    url: /blog/
 
   # - title: "Guide"
   #   url: /markdown/

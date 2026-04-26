@@ -1,0 +1,475 @@
+---
+layout: none
+permalink: /blog/
+title: "Essays"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essays — Dimitris Panagopoulos</title>
+<meta name="description" content="Long-form essays on philosophy, literature, science, and the cycles between them — written for the general good.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface-raised: #1a1a26;
+  --border: #2a2a3a;
+  --text: #e8e6e3;
+  --text-dim: #9a9aaa;
+  --text-muted: #6a6a7a;
+  --accent: #4ecdc4;
+  --accent-warm: #ff6b6b;
+  --accent-gold: #f7d794;
+  --accent-purple: #a29bfe;
+  --accent-blue: #74b9ff;
+  --gradient-main: linear-gradient(135deg, #4ecdc4 0%, #a29bfe 50%, #ff6b6b 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgba(78, 205, 196, 0.3); color: #fff; }
+
+/* --- NAV --- */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem 2rem;
+}
+nav .nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav .logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+nav .nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-left: 1.5rem;
+  transition: color 0.3s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+nav .nav-links a.active { color: var(--accent); }
+
+/* --- HERO --- */
+.hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(78,205,196,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 30%, rgba(162,155,254,0.05) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(255,107,107,0.04) 0%, transparent 50%);
+  animation: drift 20s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-2%, 2%) rotate(1deg); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 780px; }
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+.hero h1 .gradient-text {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.7s;
+}
+.hero .author-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.9s;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- FILTER PILLS --- */
+.filters {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.filter-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.25s;
+  user-select: none;
+}
+.filter-pill:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+.filter-pill.active {
+  background: rgba(78,205,196,0.1);
+  color: var(--accent);
+  border-color: rgba(78,205,196,0.4);
+}
+
+/* --- ESSAYS GRID --- */
+.essays-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+.essays-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 880px) {
+  .essays-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.essay-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.essay-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.essay-card.warm::before { background: var(--accent-warm); }
+.essay-card.purple::before { background: var(--accent-purple); }
+.essay-card.gold::before { background: var(--accent-gold); }
+.essay-card.blue::before { background: var(--accent-blue); }
+
+.essay-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  background: var(--surface-raised);
+}
+.essay-card.warm:hover { border-color: var(--accent-warm); }
+.essay-card.purple:hover { border-color: var(--accent-purple); }
+.essay-card.gold:hover { border-color: var(--accent-gold); }
+.essay-card.blue:hover { border-color: var(--accent-blue); }
+.essay-card:hover::before { opacity: 1; }
+
+.essay-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+.essay-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(78,205,196,0.1);
+  color: var(--accent);
+  border: 1px solid rgba(78,205,196,0.2);
+}
+.essay-tag.warm   { background: rgba(255,107,107,0.1); color: var(--accent-warm); border-color: rgba(255,107,107,0.2); }
+.essay-tag.purple { background: rgba(162,155,254,0.1); color: var(--accent-purple); border-color: rgba(162,155,254,0.2); }
+.essay-tag.gold   { background: rgba(247,215,148,0.1); color: var(--accent-gold); border-color: rgba(247,215,148,0.2); }
+.essay-tag.blue   { background: rgba(116,185,255,0.1); color: var(--accent-blue); border-color: rgba(116,185,255,0.2); }
+
+.essay-readtime {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.essay-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+  color: var(--text);
+}
+.essay-card .dek {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 0.98rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.essay-card .summary {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  flex-grow: 1;
+}
+.essay-card .read-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.essay-card.warm   .read-link { color: var(--accent-warm); }
+.essay-card.purple .read-link { color: var(--accent-purple); }
+.essay-card.gold   .read-link { color: var(--accent-gold); }
+.essay-card.blue   .read-link { color: var(--accent-blue); }
+
+.essay-card .read-link .arrow { transition: transform 0.3s; }
+.essay-card:hover .read-link .arrow { transform: translateX(4px); }
+
+/* hidden when filter excludes */
+.essay-card.filtered-out { display: none; }
+
+/* --- SERIES INDICATOR --- */
+.series-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.series-marker .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+/* --- FOOTER --- */
+.footer {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.footer p { margin: 0.3rem 0; }
+
+@media (max-width: 640px) {
+  nav { padding: 0.7rem 1rem; }
+  nav .nav-links a { margin-left: 0.9rem; font-size: 0.78rem; }
+  .hero { padding: 7rem 1.5rem 3rem; }
+  .essay-card { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">D · PANAGOPOULOS</a>
+    <div class="nav-links">
+      <a href="/">About</a>
+      <a href="/cv/">CV</a>
+      <a href="/research-agenda/">Research</a>
+      <a href="/blog/" class="active">Essays</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Notebook · Essays</div>
+    <h1>Reading the Classics as <span class="gradient-text">Living Instruments</span></h1>
+    <p class="subtitle">Long-form essays on philosophy, literature, science, and the cycles between them. Written, with my partner, for the general good. Free to read, share, and disagree with.</p>
+    <p class="author-line">DIMITRIS PANAGOPOULOS · ANANYA</p>
+  </div>
+</section>
+
+<div class="filters" id="filters">
+  <div class="filter-pill active" data-filter="all">All</div>
+  <div class="filter-pill" data-filter="philosophy">Philosophy</div>
+  <div class="filter-pill" data-filter="drama">Drama</div>
+  <div class="filter-pill" data-filter="cage">The Cage Trilogy</div>
+</div>
+
+<div class="essays-container">
+  <div class="essays-grid" id="essays-grid">
+
+    <!-- ESSAY 1: MYTH OF PURE REASON -->
+    <a href="/blog/myth-of-pure-reason/" class="essay-card purple" data-tags="philosophy">
+      <div class="essay-meta">
+        <span class="essay-tag purple">Philosophy</span>
+        <span class="essay-readtime">≈ 18 min read</span>
+      </div>
+      <h2>The Myth of Pure Reason</h2>
+      <p class="dek">How to read the first philosophers without lying to yourself.</p>
+      <p class="summary">A walk through Robin Waterfield's Introduction to <em>The First Philosophers</em>. Why the standard story — that <em>mythos</em> was replaced by <em>logos</em> in sixth-century Ionia — is a Romantic lie, and why modern science is, on closer inspection, our reigning mythology with better instruments.</p>
+      <span class="read-link">Read essay <span class="arrow">→</span></span>
+    </a>
+
+    <!-- ESSAY 2: DOOR THAT CLOSES QUIETLY -->
+    <a href="/blog/door-that-closes-quietly/" class="essay-card warm" data-tags="drama cage">
+      <div class="essay-meta">
+        <span class="essay-tag warm">Drama</span>
+        <span class="essay-tag">Cage Trilogy · I</span>
+        <span class="essay-readtime">≈ 25 min read</span>
+      </div>
+      <h2>The Door That Closes Quietly</h2>
+      <p class="dek">Antigone, Nora, and the women who could not leave.</p>
+      <p class="summary">Seven heroines from Sophocles, Euripides, Ibsen, and Strindberg — and the spectrum of what a woman does when the structure begins to crush her. Four strategies: weaponize, implode, escape, transcend. Only two of them transcend. The rest are still inside the cage.</p>
+      <span class="read-link">Read essay <span class="arrow">→</span></span>
+    </a>
+
+    <!-- ESSAY 3: THREE REFUSALS -->
+    <a href="/blog/three-refusals/" class="essay-card" data-tags="philosophy drama cage">
+      <div class="essay-meta">
+        <span class="essay-tag">Philosophy · Drama</span>
+        <span class="essay-tag">Cage Trilogy · II</span>
+        <span class="essay-readtime">≈ 30 min read</span>
+      </div>
+      <h2>Three Refusals</h2>
+      <p class="dek">On what the cell, the cave, and the front door have in common.</p>
+      <p class="summary">Socrates in his prison. Antigone in her tomb. Nora in her front hall. Three figures separated by twenty-three centuries who would, if you put them in a room, understand each other immediately. The same three-part structure of refusal — the appeal, the refusal of the game, the acceptance of the cost — in three different geometries.</p>
+      <span class="read-link">Read essay <span class="arrow">→</span></span>
+    </a>
+
+    <!-- ESSAY 4: MEN WHO BUILT THE CAGES -->
+    <a href="/blog/men-who-built-the-cages/" class="essay-card gold" data-tags="drama cage">
+      <div class="essay-meta">
+        <span class="essay-tag gold">Drama</span>
+        <span class="essay-tag">Cage Trilogy · III</span>
+        <span class="essay-readtime">≈ 26 min read</span>
+      </div>
+      <h2>The Men Who Built the Cages</h2>
+      <p class="dek">Creon, Torvald, and the tragedy of the frightened king.</p>
+      <p class="summary">Five men across twenty-four centuries — Creon, Jason, Theseus, Torvald, the absent Count of <em>Miss Julie</em> — diagnosed with the same disease. They did not build their cages out of hatred. They built them out of materials they sincerely believed were love. And the playwrights, almost unanimously, did not punish them. They pitied them.</p>
+      <span class="read-link">Read essay <span class="arrow">→</span></span>
+    </a>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>Dimitris Panagopoulos · Cranfield University</p>
+  <p>Essays written, with my partner, for the general good.</p>
+  <p style="margin-top:0.6rem; font-size:0.72rem;">All writing here is shared freely. Quotation, sharing, and disagreement are warmly welcome.</p>
+</div>
+
+<script>
+  // simple tag-based filtering
+  const pills = document.querySelectorAll('.filter-pill');
+  const cards = document.querySelectorAll('.essay-card');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const filter = pill.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all') {
+          card.classList.remove('filtered-out');
+        } else {
+          const tags = (card.dataset.tags || '').split(/\s+/);
+          if (tags.includes(filter)) {
+            card.classList.remove('filtered-out');
+          } else {
+            card.classList.add('filtered-out');
+          }
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
