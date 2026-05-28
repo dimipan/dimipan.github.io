@@ -8,7 +8,7 @@ title: "Research Agenda"
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Observability, Grounding, Assurance — The Research Agenda of Dimitris Panagopoulos</title>
+<title>Observability, Grounding, Assurance — The Research Agenda of Dimitrios Panagopoulos</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -437,7 +437,7 @@ code {
     <div class="hero-label">PhD Research Agenda</div>
     <h1>How Should an Autonomous System <span class="gradient-text">Read the Acquisition Trajectory</span> It Induces in a Human Source?</h1>
     <p class="subtitle">A programme of work developing the observability, grounding, and assurance layers through which an autonomous controller reads a schema-grounded acquisition trajectory induced in a human source — and admits the resulting content into control through bounded, certified interfaces. Language is the evidence channel; the acquisition state is what the controller reads; the cost of any feature of that state is left to the downstream task.</p>
-    <p class="author-line">Dimitris Panagopoulos &nbsp;·&nbsp; Cranfield University &nbsp;·&nbsp; EPSRC iCASE with Thales UK</p>
+    <p class="author-line">Dimitrios Panagopoulos &nbsp;·&nbsp; Cranfield University &nbsp;·&nbsp; EPSRC iCASE with Thales UK</p>
   </div>
 </section>
 
@@ -605,7 +605,7 @@ code {
     <h2>The Research Outputs</h2>
   </div>
 
-  <p>Each pillar is realised through concrete publications and submissions. Three further outputs extend the programme into adjacent intellectual territory — generalising one of the telemetry signals, instrumenting the human side of the loop, and building the plant model required for integration testing. Together they constitute the narrative arc of the thesis: independent contributions that, taken in sequence, motivate and resolve the Triple Barrier Problem.</p>
+  <p>Each pillar is realised through concrete publications and submissions. Several further outputs surround the three pillars: a foundational conference paper and a co-authored generalisation study that establish the SAR setting; an extension that lifts one of the telemetry signals into a broader phase-space framework; an adjacent design study of downstream controllers; an exploratory human-side instrumentation sketch; and the reactive plant model required for integration testing. Together they constitute the narrative arc of the thesis: independent contributions that, taken in sequence, motivate and resolve the Triple Barrier Problem.</p>
 
   <!-- Work 1 — Foundational SMC -->
   <div class="work-entry">
@@ -618,6 +618,32 @@ code {
     <p>The foundational paper that established the architecture. It introduced the integration of LLMs with hierarchical reinforcement learning for SAR, demonstrating how verbal inputs from human stakeholders can be transformed into actionable RL insights via an Information Space, Context Extractor, Strategic Decision Engine, and Attention Space. Language-infused hierarchical agents were shown to outperform flat RL agents — especially in sparse-reward environments — and domain-knowledge infusion via RAG produced properly grounded outputs.</p>
     <ul>
       <li><strong>Contribution to the arc:</strong> Established that language-guided hierarchical decision-making is viable and that attention-based policy shaping from verbal inputs improves both performance and safety. Introduced the Information Space formalism that recurs in all subsequent works as the structural carrier of schema-based information requirements.</li>
+    </ul>
+  </div>
+
+  <!-- Work 1b — CA-MIQ / Learning What Matters Now -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge warm">Under submission · Conference</span>
+      <span class="badge">Pillar 1 — Extension</span>
+    </div>
+    <h3>Learning What Matters Now: A Dual-Critic Context-Aware RL Framework for Priority-Driven Information Gain (CA-MIQ)</h3>
+    <p>An extension of the Information Space formalism to the case where operational priorities shift mid-mission. CA-MIQ pairs a standard extrinsic critic with an intrinsic critic that fuses state novelty, information-location awareness, and real-time priority alignment; a shift detector triggers transient exploration boosts and selective critic resets so the agent re-focuses after a priority revision. In a simulated SAR grid-world, it achieves near-complete recovery after single and multiple priority shifts where ε-greedy and ε-boosted baselines fail to adapt.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Treats priority ordering as a latent context variable over the same Information Space that threads through the rest of the programme, addressing a limitation the foundational paper left open — its assumption of a static priority ordering. It is positioned as a decorative extension rather than a pillar: it strengthens the SAR motivator and the information-gathering formalism without altering the observability, grounding, or assurance interfaces.</li>
+    </ul>
+  </div>
+
+  <!-- Work 1c — Generalising Rescue Operations (Drones, co-author) -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge">Published · Drones (MDPI) 2025</span>
+      <span class="badge blue">Co-author — SAR Motivator</span>
+    </div>
+    <h3>Generalising Rescue Operations in Disaster Scenarios Using Drones: A Lifelong Reinforcement Learning Approach</h3>
+    <p>A co-authored study that combines lifelong reinforcement learning with eligibility traces and a shaping-reward heuristic derived from pre-training experience, improving generalisation of UAV navigation to novel post-disaster environments. Extensive simulation shows improved average return over baseline RL and robustness across environment complexities and varying numbers of trapped individuals.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> External validation of the SAR motivator that frames the thesis. It is not a pillar contribution and does not touch the language-to-control interfaces; it is included to evidence the broader RL-for-SAR programme within which the observability, grounding, and assurance layers are situated.</li>
     </ul>
   </div>
 
@@ -689,13 +715,13 @@ code {
   <!-- Work 7 — ITLI -->
   <div class="work-entry">
     <div class="work-meta">
-      <span class="badge gold">Draft</span>
+      <span class="badge gold">Exploratory · contingent</span>
       <span class="badge blue">Adjacent — Human-side Instrumentation</span>
     </div>
     <h3>ITLI: An LLM-Derived Intrinsic Task-Load Index for Cognitive Load Estimation</h3>
-    <p>A complementary instrumentation study addressing the human side of the loop. Cognitive Load Theory identifies <em>element interactivity</em> — the number of interdependent information components held jointly in working memory — as the operational determinant of intrinsic load. ITLI operationalises element interactivity from textual information streams using an LLM to extract linguistically grounded features (entity count, relation count, temporal/conditional clauses, quantitative constraints, token complexity) mapped via a weighted integration to a 0–100 task-load index.</p>
+    <p>An exploratory, early-stage study on the human side of the loop, included here for completeness rather than as a load-bearing part of the thesis arc. Cognitive Load Theory identifies <em>element interactivity</em> — the number of interdependent information components held jointly in working memory — as the operational determinant of intrinsic load. ITLI sketches a way to operationalise element interactivity from textual information streams using an LLM to extract linguistically grounded features (entity count, relation count, temporal/conditional clauses, quantitative constraints, token complexity) mapped via a weighted integration to a 0–100 task-load index. Feature weighting and the final scalar mapping are open and pending validation.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> AST instruments the acquisition state the system is <em>obtaining</em> from the human source; ITLI estimates the cognitive demand the system is <em>about to impose on</em> the human operator. The two are duals at opposite ends of the same channel and share a single methodological commitment — instrument the observable, do not infer the latent. ITLI does not enter the assurance chain because its outputs are not bounded controller inputs in the formal sense; it is positioned instead as an observability signal for variable-autonomy and adaptive presentation, with a clearly demarcated scope.</li>
+      <li><strong>Relationship to the arc:</strong> ITLI sits deliberately <em>outside</em> the externalisation principle that governs the three pillars: it estimates a cognitive-load-adjacent quantity rather than instrumenting an observable acquisition state, and its outputs are not bounded controller inputs in the formal sense, so it does not enter the assurance chain. For that reason it is treated as a future direction rather than a thesis contribution — a possible observability signal for variable-autonomy and adaptive presentation, pursued only if and when it matures. It is mentioned because it marks the boundary at which the present engineering-side framing would meet work requiring quantitative psycholinguistic claims.</li>
     </ul>
   </div>
 
@@ -790,13 +816,19 @@ code {
     <p style="margin-top:0.6rem"><strong>2. Training-decoupled language grounding via a client-agnostic Signal Contract.</strong> LUCIFER is the first middleware to formalise a stable mathematical interface between streaming language and heterogeneous decision-makers, validated across learning and non-learning paradigms.</p>
     <p style="margin-top:0.6rem"><strong>3. Compositional assurance for the language-to-control admission boundary.</strong> The Certification Gate and Signal Contract, together with the Compositional Bounded-Input Assurance Theorem, are the first interface-level formal account of how runtime natural language may enter an assured control pipeline without collapsing downstream assurance into the semantics of language.</p>
     <p style="margin-top:0.6rem"><strong>4. Phase-space decomposition of temporal representation trajectories.</strong> A generalisation of the AST friction observable into a novelty–yield phase space (PE / LA / UE / UR) that distinguishes failure modes which novelty-only, reward-only, or absorption-only metrics conflate — preserving AST's commitment that the telemetry classifies and the controller adjudicates.</p>
-    <p style="margin-top:0.6rem"><strong>5. LLM-based intrinsic cognitive load estimation.</strong> ITLI is the first attempt to compute element interactivity directly from textual information streams using an LLM as a feature extractor over CLT-grounded linguistic cues.</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label teal">Adjacent and Exploratory</div>
+    <p>Beyond the four contributions above, the programme includes exploratory work that is deliberately <em>not</em> claimed as a thesis contribution. <strong>ITLI</strong>, an LLM-derived intrinsic cognitive-load index, sits outside the externalisation principle — it estimates a cognitive-load-adjacent quantity rather than instrumenting an observable acquisition state — and is therefore treated as a future direction, pursued only if it matures. A <strong>behavioural-control design-space study</strong> surveys the downstream controllers that could sit beneath the certification gate and is identified as a research thread rather than a thesis chapter.</p>
   </div>
 
   <div class="callout warm">
     <div class="callout-label warm">What Is Not Claimed</div>
-    <p>The thesis does not claim to have solved "the physics of dialogue", to have produced a universally optimal interviewing agent, or to have verified the semantics of runtime natural language. It claims to have built <strong>practical, validated tools</strong> — telemetry signals, a grounding middleware, and a compositional assurance framework — that are useful, computable, principled, and transferable.</p>
-    <p style="margin-top:0.6rem">A critical distinction: <strong>this work reads acquisition trajectories, not human communicative capacity.</strong> The formalisation includes a latent quantity C(t) representing the effective transmission capacity of the human–agent channel, which the literature suggests can be affected by interactional conditions. C(t) is acknowledged in the formal model but is not a variable that the system measures, estimates, or controls. Findings from psycholinguistics and crisis communication — that urgency can affect recall, that interaction style can affect cooperativeness — <em>motivate</em> the architectural choices but are not claims the thesis sets out to prove. AST reports the acquisition trajectory; the Certification Gate adjudicates that trajectory against thresholds set by the task; the Signal Contract bounds what reaches the controller. Whether the same observable trajectory patterns also reflect anything about the human's internal state, and whether the system's adaptations also benefit that state, are plausible hypotheses but lie at the intersection of computational psycholinguistics and control theory beyond the scope of an engineering thesis.</p>
+    <p>The thesis does not claim to have solved "the physics of dialogue", to have produced a universally optimal interviewing agent, or to have verified the semantics of runtime natural language. It claims to have built <strong>practical, validated tools</strong> — telemetry signals, a grounding middleware, and a compositional assurance framework — that are useful, computable, principled, and transferable. Three scope boundaries are drawn explicitly and observed throughout:</p>
+    <p style="margin-top:0.6rem"><strong>No claim about human cognitive or affective state.</strong> AST exposes the controller's view of the acquisition trajectory; it does not estimate, attribute, or control the latent communicative or cognitive state of the human source. The formalisation includes a latent quantity C(t) — the effective transmission capacity of the human–agent channel, which the literature suggests can be affected by interactional conditions — but C(t) is acknowledged in the model and is <em>not</em> measured, estimated, or controlled by any component. Psycholinguistic findings <em>motivate</em> the architecture; they are not claims the thesis sets out to prove.</p>
+    <p style="margin-top:0.6rem"><strong>No claim of dialogue quality.</strong> The thesis proposes no conversational-quality metric. Friction is not failure: AST classifies the trajectory, the Certification Gate adjudicates it against task-set thresholds, and the downstream controller decides whether a pattern is operationally costly. The neutrality of the measurement layer is a feature, not a hedge.</p>
+    <p style="margin-top:0.6rem"><strong>No claim of language verification.</strong> The assurance framework does not verify that runtime language is <em>true</em>. It formalises the interface conditions under which language-derived content may be admitted into a control pipeline. Truth, intent, and adversarial reporting are out of scope; the framework is about admission, not authentication. Whether the same observable trajectory patterns also reflect anything about the human's internal state lies at the intersection of computational psycholinguistics and control theory, beyond the scope of an engineering thesis.</p>
   </div>
 
   <div class="divider"></div>
@@ -837,7 +869,7 @@ code {
 
 <!-- FOOTER -->
 <div class="footer">
-  <p>Dimitris Panagopoulos · Cranfield University · Faculty of Engineering and Applied Sciences</p>
+  <p>Dimitrios Panagopoulos · Cranfield University · Faculty of Engineering and Applied Sciences</p>
   <p style="margin-top:0.3rem">Supervisors: Prof. Weisi Guo &middot; Dr. Adolfo Perrusquía</p>
   <p style="margin-top:0.3rem">EPSRC iCASE with Thales UK (EP/X52475X/1)</p>
   <p style="margin-top:0.5rem; font-size:0.75rem; color:var(--text-muted);">This document serves as the research agenda and narrative backbone for the PhD programme.</p>
