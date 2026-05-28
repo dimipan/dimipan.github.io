@@ -8,7 +8,7 @@ title: "Research Agenda"
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autonomous Knowledge Acquisition — The Research Agenda of Dimitris Panagopoulos</title>
+<title>Observability, Grounding, Assurance — The Research Agenda of Dimitris Panagopoulos</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -135,7 +135,7 @@ nav .nav-links a:hover { color: var(--accent); }
 .hero .subtitle {
   font-size: 1.15rem;
   color: var(--text-dim);
-  max-width: 650px;
+  max-width: 700px;
   margin: 0 auto 2rem;
   opacity: 0;
   animation: fadeUp 0.8s ease forwards 0.7s;
@@ -203,6 +203,7 @@ nav .nav-links a:hover { color: var(--accent); }
 .callout.warm { border-left-color: var(--accent-warm); }
 .callout.purple { border-left-color: var(--accent-purple); }
 .callout.gold { border-left-color: var(--accent-gold); }
+.callout.blue { border-left-color: var(--accent-blue); }
 .callout .callout-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
@@ -214,6 +215,7 @@ nav .nav-links a:hover { color: var(--accent); }
 .callout .callout-label.warm { color: var(--accent-warm); }
 .callout .callout-label.purple { color: var(--accent-purple); }
 .callout .callout-label.gold { color: var(--accent-gold); }
+.callout .callout-label.blue { color: var(--accent-blue); }
 .callout p:last-child { margin-bottom: 0; }
 
 /* Pillar Cards */
@@ -419,7 +421,8 @@ code {
   <div class="nav-inner">
     <div class="logo">D.Panagopoulos // PhD</div>
     <div class="nav-links">
-      <a href="#problem">The Problem</a>
+      <a href="#problem">Problem</a>
+      <a href="#barriers">Barriers</a>
       <a href="#thesis">Thesis</a>
       <a href="#pillars">Pillars</a>
       <a href="#works">Works</a>
@@ -432,8 +435,8 @@ code {
 <section class="hero">
   <div class="hero-content">
     <div class="hero-label">PhD Research Agenda</div>
-    <h1>How Should Autonomous Systems <span class="gradient-text">Acquire, Monitor, and Act on Knowledge</span> from Language-Rich Environments?</h1>
-    <p class="subtitle">A programme of work developing the instrumentation, grounding, and behavioural control layers that enable autonomous agents to gather mission-critical information through dialogue and human interaction — efficiently, safely, and adaptively.</p>
+    <h1>How Should an Autonomous System <span class="gradient-text">Read the Acquisition Trajectory</span> It Induces in a Human Source?</h1>
+    <p class="subtitle">A programme of work developing the observability, grounding, and assurance layers through which an autonomous controller reads a schema-grounded acquisition trajectory induced in a human source — and admits the resulting content into control through bounded, certified interfaces. Language is the evidence channel; the acquisition state is what the controller reads; the cost of any feature of that state is left to the downstream task.</p>
     <p class="author-line">Dimitris Panagopoulos &nbsp;·&nbsp; Cranfield University &nbsp;·&nbsp; EPSRC iCASE with Thales UK</p>
   </div>
 </section>
@@ -446,96 +449,107 @@ code {
   <!-- ============================================== -->
   <div class="section-header" id="problem">
     <div class="section-number">Part I</div>
-    <h2>What Is the Problem?</h2>
+    <h2>The Information Asymmetry in Autonomous Operations</h2>
   </div>
 
-  <p class="lead">Autonomous systems are increasingly expected to operate in environments where the information they need is not embedded in sensor readings — it is held by people, expressed in natural language, and scattered across unstructured verbal reports. Yet these systems have no principled way to <strong>acquire</strong> that knowledge through conversation, <strong>monitor</strong> whether the conversation is productive, or <strong>act on</strong> what they learn in real-time.</p>
+  <p class="lead">Autonomous systems operating in dynamic, high-stakes environments face a persistent source of uncertainty that is not geometric or perceptual but <em>informational</em>. Critical situational context exists in human minds and is communicated through verbal evidence, yet it does not reliably enter the agent's decision-making pipeline. The environment may be partially observable through sensors, but mission-relevant context — intent, constraints, hazards, last-known trajectories, local knowledge — remains unobservable to the controller unless the <em>acquisition process</em> that obtains it from a human source is itself made observable. Language is the evidence channel through which that process unfolds; the object the controller needs to read is not the language but the schema-grounded trajectory of acquired evidence the language induces.</p>
 
-  <p>Consider a search-and-rescue robot arriving at a disaster scene. Sensor data tells it about terrain and obstacles, but the most actionable intelligence — where victims were last seen, which routes are blocked, what hazards have emerged — lives in the minds of witnesses, first responders, and bystanders. This information must be <em>elicited through dialogue</em>, not simply perceived.</p>
-
-  <p>SAR is the motivating domain, but the underlying challenge is universal. Any autonomous system that must gather structured knowledge from humans — medical intake robots, disaster coordinators, investigative agents, field survey systems — faces the same constellation of problems:</p>
+  <p>The problem is therefore not that robots lack sensors, nor that the language they receive is poor. It is that autonomy lacks a reliable <strong>interface layer</strong> for reading the acquisition trajectory, grounding the evidence it carries, and admitting both into control under formally characterised conditions. Search and rescue (SAR) is the motivating domain throughout this thesis because it concentrates the difficulty: time pressure, dispersed witnesses, evolving hypotheses, and consequences that compound when acquisition fails. But SAR is the boundary case, not the boundary. The same architectural deficit recurs wherever an autonomous system must acquire and act on knowledge held by humans — medical intake, disaster coordination, investigative interviewing, supervisory teaming, collaborative grounding. Across these domains the surface activity differs and the operational interpretation of acquisition friction differs sharply, but the missing observability and admission interface is the same.</p>
 
   <div class="callout">
     <div class="callout-label teal">The Core Gap</div>
-    <p><strong>There is no integrated framework for how autonomous agents should conduct, monitor, and adapt information-seeking conversations with humans</strong> — one that spans from understanding natural language reports, through measuring conversational efficiency in real time, to controlling the agent's questioning behaviour under domain constraints.</p>
+    <p>Across the broader landscape of autonomous systems, there is <strong>no compositional account of the boundary through which runtime natural language enters control</strong> — one that spans from an after-exchange observability layer over the acquisition state, through grounding of unstructured language into bounded mathematical signals, to the formal admission guarantees that preserve downstream controller assurance.</p>
   </div>
 
-  <p>This gap sits at the intersection of multiple research frontiers — human-robot interaction, reinforcement learning, dialogue systems, representation engineering, and cognitive science — none of which, individually, provides a complete answer.</p>
+  <p>This gap sits at the intersection of human–robot interaction, language-conditioned control, runtime verification, and information-theoretic dialogue analysis. None of these fields, individually, provides the missing interface; each is positioned to consume it once it exists.</p>
+
+  <div class="divider"></div>
 
   <!-- ============================================== -->
-  <!--  PART 2: WHY IT MATTERS                        -->
+  <!--  PART 2: THE TRIPLE BARRIER                    -->
   <!-- ============================================== -->
-  <div class="section-header">
+  <div class="section-header" id="barriers">
     <div class="section-number">Part II</div>
-    <h2>Why Is This Necessary?</h2>
+    <h2>The Triple Barrier Problem</h2>
   </div>
 
-  <p>The necessity is both <strong>practical</strong> and <strong>scientific</strong>.</p>
+  <p>Bridging verbal human intelligence into robotic autonomy requires resolving three coupled barriers. They are not three flavours of the same problem; they are sequential conditions, each of which must be discharged before the next becomes meaningful.</p>
 
-  <div class="callout warm">
-    <div class="callout-label warm">Practical Necessity</div>
-    <p>In time-critical operations, wasted interview turns cost lives. An agent that cannot detect it is asking redundant questions, or cannot adapt its questioning strategy when information flow degrades, or cannot translate a verbal hazard report into a navigational constraint, is not just inefficient — it is operationally dangerous. Human interviewers rely on decades of implicit feedback (micro-expressions, tonal shifts, meta-communication) to regulate the <em>flow</em> of information. Autonomous systems have none of this. They need <strong>explicit, computational substitutes</strong> — signals that monitor whether information is accumulating productively, not signals that diagnose the human's internal state.</p>
+  <div class="callout">
+    <div class="callout-label teal">Barrier 1 — The Observability Gap</div>
+    <p>In physical control, real-time observability is foundational: navigation does not act on raw images but on pose and map estimates; manipulation does not reason over raw motor currents but over force and contact estimates. Human-information acquisition has <strong>no comparable measurement layer</strong>. A controller may receive natural-language evidence from a source yet lack any compact, after-exchange estimate of which task categories have been resolved, where residual acquisition utility remains, and whether the recent exchange is contributing new evidence or revisiting already-covered ground. Without such a layer, adaptation is impossible: the controller cannot decide whether to continue, switch category, change strategy, terminate, or escalate. Crucially, this is an <em>observability</em> problem, not a quality-judgment problem. Recurrence is not intrinsically a failure — repeated probing may be costly in time-critical SAR, productive in collaborative grounding, and appropriate in reflective interviewing. The missing layer must expose the acquisition trajectory faithfully and leave the cost of that trajectory to the downstream task.</p>
   </div>
 
   <div class="callout purple">
-    <div class="callout-label purple">Scientific Necessity</div>
-    <p>Across AI and robotics, there is a missing measurement and control layer for information-seeking dialogue. Navigation has pose estimation and SLAM. Manipulation has force-torque sensing. <strong>Dialogue-based knowledge acquisition has no equivalent telemetry.</strong> There are no standard turn-level signals for "how much useful information remains," "is this conversation stalling," or "is the agent's questioning behaviour protocol-compliant." Without such signals, no closed-loop control is possible — and without closed-loop control, autonomous dialogue remains open-loop and fragile.</p>
+    <div class="callout-label purple">Barrier 2 — The Grounding Gap</div>
+    <p>Even when useful information is provided, current pipelines lack robust mechanisms to convert messy declarative language into internal constraints that guide downstream autonomy. Existing language-conditioned approaches typically assume relatively well-formed inputs and treat language as an endpoint rather than a continuously updating source of contextual constraints. In emergency and situated HRI settings, interaction is characterised by miscommunication, corrections, ambiguity, and self-repair — phenomena that demand semantic reasoning rather than pattern matching, and that demand a <em>middleware</em> between the language process and the controller.</p>
   </div>
 
-  <p>Furthermore, the field faces a <strong>coupling problem</strong>. Most systems that use language embed it directly inside the learning or planning loop, entangling language-understanding failures with control failures and making diagnosis, update, and redeployment expensive. And most approaches to behavioural control in dialogue offer only coarse-grained, static guidance — inadequate for the multi-objective, multi-turn, protocol-constrained conversations that characterise professional information gathering.</p>
+  <div class="callout warm">
+    <div class="callout-label warm">Barrier 3 — The Assurance Gap</div>
+    <p>Formal assurance methods for autonomous systems — shielding, runtime verification, contract-based design, control barrier functions — are effective when controller-facing inputs are already well-characterised in bounded mathematical domains. Runtime natural language, however, arrives as unbounded, ambiguous, and potentially unreliable input. No existing assurance framework specifies the conditions under which language-derived content may be <em>admitted</em> into a control pipeline, nor how guarantees at that admission boundary compose with the downstream theories the system already relies on. For safety-critical applications, empirical demonstrations that "language helps" are not enough; a compositional account of the interface is required.</p>
+  </div>
+
+  <p>These three barriers are coupled. Without observability, grounding cannot be evaluated; without grounding, assurance has no bounded objects to constrain; without assurance, observability and grounding remain empirical conveniences rather than principled components of a safety-relevant pipeline. The thesis treats them as one structural problem decomposed into three independently validated layers.</p>
+
+  <div class="divider"></div>
 
   <!-- ============================================== -->
-  <!--  PART 3: THE THESIS                            -->
+  <!--  PART 3: THESIS                                -->
   <!-- ============================================== -->
   <div class="section-header" id="thesis">
     <div class="section-number">Part III</div>
     <h2>The Thesis Statement</h2>
   </div>
 
-  <blockquote>An autonomous agent can efficiently, safely, and adaptively gather mission-critical knowledge from humans through dialogue if three capabilities are developed as modular, interoperable layers: (1) a measurement layer that provides turn-level observables for conversational progress and health; (2) a grounding layer that translates streaming natural language into control-relevant signals decoupled from the decision-maker; and (3) a behavioural control layer that dynamically steers questioning strategy under multi-objective constraints using the measurement layer as feedback.</blockquote>
+  <blockquote>Autonomous systems can reduce information asymmetry in dynamic environments by combining (i) an after-exchange observability layer that exposes the human-information acquisition state — progress and friction — to a downstream controller; (ii) a grounding middleware that converts extracted declarative language into bounded, client-agnostic control signals; and (iii) a compositional assurance framework that certifies the admission boundary through which runtime language enters control pipelines.</blockquote>
 
-  <p>The key architectural insight is <strong>separation of concerns</strong>. Rather than building a monolithic "dialogue agent," the PhD decomposes autonomous knowledge acquisition into independently validated layers that can be combined, replaced, and transferred across domains and control paradigms.</p>
+  <p>The architectural commitment underlying the thesis is the <strong>separation of concerns</strong>. Rather than building a monolithic language-conditioned agent, the work decomposes the language-to-control problem into three layers whose interfaces are formally specified and whose guarantees compose. Each layer is validated independently; together they instantiate a single chain along which runtime natural language enters control through certified, bounded interfaces.</p>
+
+  <p>A scope boundary runs through the entire programme. The thesis makes no claims about regulating or measuring human cognitive states, nor about evaluating whether a dialogue is conversationally good. It instruments the <em>observable acquisition trajectory</em>, grounds extracted content into <em>control-admissible signals</em>, and provides the <em>formal interface guarantees</em> that connect these layers. The human side of the channel is treated with respect for its complexity: latent quantities such as effective communicative capacity are acknowledged in the formalism but are not estimated, attributed, or controlled. Whether acquisition friction should be penalised, ignored, or interpreted as productive recurrence is a decision left entirely to the downstream task and controller; the measurement layer is deliberately silent on this question.</p>
+
+  <div class="divider"></div>
 
   <!-- ============================================== -->
   <!--  PART 4: THE THREE PILLARS                     -->
   <!-- ============================================== -->
   <div class="section-header" id="pillars">
     <div class="section-number">Part IV</div>
-    <h2>The Three Pillars — How We Address It</h2>
+    <h2>The Three Pillars</h2>
   </div>
 
-  <p>The PhD is structured around three interlocking research pillars. Each addresses a distinct research question, produces distinct contributions, and feeds the others.</p>
+  <p>The PhD is structured around three interlocking research pillars, each corresponding to one barrier and one research question. Each pillar produces an independently publishable contribution; together they define the language-to-control pipeline.</p>
 
   <div class="pillar-grid">
 
     <div class="pillar-card">
-      <div class="pillar-tag">Pillar 1 — Measurement</div>
+      <div class="pillar-tag">Pillar 1 — Observability</div>
       <div class="pillar-icon">📡</div>
-      <h3>Dialogue Telemetry: Instrumenting Conversations</h3>
-      <p><strong>RQ:</strong> What turn-level observables can instrument schema-grounded information-gathering dialogues so that progress and stalling can be monitored online?</p>
-      <p style="margin-top:0.8rem"><strong>What:</strong> Dialogue Telemetry (DT) — a framework producing two model-agnostic signals after each question-answer exchange: a <em>Progress Estimator</em> (PE) quantifying residual information potential per knowledge category (including an information-theoretic bits-based variant), and a <em>Stalling Index</em> (SI) detecting throughput degradation via repeated category probing with semantically similar, low-gain responses.</p>
-      <p style="margin-top:0.8rem"><strong>Why it's needed:</strong> No existing turn-level measurement layer is both model-agnostic and actionable. Prior work focuses on pre-turn question selection or post-hoc breakdown detection. DT fills the gap with <em>after-each-turn</em> telemetry designed for online monitoring and closed-loop control.</p>
-      <p style="margin-top:0.8rem"><strong>How:</strong> PE uses schema-grounded informativeness rates, completeness tracking, and semantic embeddings to estimate "how much useful information remains now" per category. SI fuses discrete repetition counts with embedding-space cosine similarity in a trailing window, flagging observable failure signatures without requiring causal diagnosis. Crucially, DT monitors <em>information flow</em> — whether knowledge is accumulating — not the human's internal cognitive or emotional state. Stalling may arise from stress, confusion, knowledge exhaustion, or simply poor questioning; DT detects the symptom and leaves causal attribution outside its scope. Both signals are validated in SAR-inspired interview simulations and integrated as RL policy observations.</p>
+      <h3>Acquisition-State Telemetry: The Sensing Layer</h3>
+      <p><strong>RQ1:</strong> What after-exchange observables can expose the schema-grounded acquisition state induced by human-information evidence, so that progress and friction become legible to a downstream controller across heterogeneous interaction settings?</p>
+      <p style="margin-top:0.8rem"><strong>What:</strong> Acquisition-State Telemetry (AST) — a controller-facing observability layer that treats verbal evidence as an input stream and exposes the evolving acquisition state induced by that evidence. The architecture separates three roles that the literature typically conflates: (i) <em>state estimation</em> from source evidence via a schema-grounded scorer, (ii) <em>trajectory-level telemetry</em> over the resulting acquisition state, and (iii) <em>domain-specific interpretation</em> of that telemetry inside a downstream controller. The interface exposes two observable types: a prospective <em>Progress</em> observable P<sub>t</sub> that estimates where residual acquisition utility remains across the task schema, and a retrospective <em>Friction</em> observable F<sub>t</sub> that estimates whether the recent acquisition trajectory is becoming low-yield or recurrent.</p>
+      <p style="margin-top:0.8rem"><strong>Why it is needed:</strong> Existing work concentrates on either pre-turn question selection (expected information gain) or post-hoc dialogue evaluation (breakdown classification, satisfaction scoring). Neither produces the after-exchange, controller-facing observable that adaptation requires. More fundamentally, existing measures treat the dialogue itself as the object of evaluation, conflating <em>whether the exchange was conversationally good</em> with <em>whether the acquisition state advanced</em>. The two are different questions, and only the second is what the controller needs.</p>
+      <p style="margin-top:0.8rem"><strong>How:</strong> All observables are conditioned on a Global Task Schema Ω that defines categories, importance weights, and completion criteria. The empirical instantiation uses one fixed lightweight sensor pair — PE<sup>B</sup> (a Bayesian residual-progress score) and SI<sup>⊥</sup> (an embedding-subspace semantic-recurrence score under weak acquisition gain) — but the architectural contribution lies in the interface, not the mathematics: alternative posterior models, embeddings, or projection operators would preserve the same separation between source-evidence estimation, acquisition-state telemetry, and downstream interpretation. Crucially, AST is deliberately silent on whether friction should be penalised. <em>"In SAR, repeated low-yield acquisition may carry operational cost, whereas in collaborative grounding or counselling, recurrence may be useful."</em> The telemetry layer measures the acquisition trajectory; the controller interprets its cost. Validation spans controlled SAR traces and three external corpora — transactional slot filling (MultiWOZ), collaborative spatial grounding (HCRC Map Task), and reflective interviewing — using a single fixed calibration, demonstrating that the same observability interface produces interpretable readings across qualitatively different interaction mechanics.</p>
     </div>
 
     <div class="pillar-card">
       <div class="pillar-tag">Pillar 2 — Grounding</div>
       <div class="pillar-icon">🔗</div>
-      <h3>LUCIFER: Language-to-Signal Middleware</h3>
-      <p><strong>RQ:</strong> Can online language grounding be externalised from a decision-maker via a stable signal contract, while still yielding safe and efficient behaviour?</p>
-      <p style="margin-top:0.8rem"><strong>What:</strong> LUCIFER (Language Understanding and Context-Infused Framework for Exploration and Behaviour Refinement) — a training-decoupled middleware that converts streaming verbal reports and client-agnostic telemetry into four standardised control-relevant signals: policy priors, reward potentials, admissible-action constraints, and action predictions.</p>
-      <p style="margin-top:0.8rem"><strong>Why it's needed:</strong> Most systems couple language processing inside the learner/planner, creating redeployment burden and diagnostic opacity. Messy, self-correcting language from stressed humans requires semantic reasoning, not pattern-matching. The field needs a principled <em>interface boundary</em> between language understanding and decision-making.</p>
-      <p style="margin-top:0.8rem"><strong>How:</strong> A Context Extractor (RAG-augmented LLM) maps verbal reports to structured semantic objects; a Signal Contract transduces these into mathematical quantities. An optional Discovery service (Exploration Facilitator) predicts high-value information-gathering actions from telemetry alone. Validated with two structurally distinct clients (hierarchical RL and hybrid A*+heuristic planner), demonstrating client-agnosticism: grounding→safety, discovery→efficiency, combination→both.</p>
+      <h3>LUCIFER: The Middleware Layer</h3>
+      <p><strong>RQ2:</strong> How can unstructured, real-time verbal reports be translated into bounded mathematical signals that heterogeneous autonomous controllers can consume without retraining?</p>
+      <p style="margin-top:0.8rem"><strong>What:</strong> LUCIFER (Language Understanding and Context-Infused Framework for Exploration and Refinement) — an inference-only middleware that exposes a client-agnostic <em>Signal Contract</em> with four standardised outputs: policy priors, reward potentials, admissible-option constraints, and action predictions for targeted information gathering.</p>
+      <p style="margin-top:0.8rem"><strong>Why it is needed:</strong> Embedding language understanding inside the learner or planner couples language conventions, domain knowledge, and optimisation dynamics — increasing redeployment burden and confounding grounding errors with control errors. A principled interface boundary is required between language processing and decision-making, one robust to messy, self-correcting reports that defeat pattern-matching baselines.</p>
+      <p style="margin-top:0.8rem"><strong>How:</strong> A retrieval-augmented Context Extractor maps verbal reports into structured semantic objects grounded against the task schema and a knowledge base. An Exploration Facilitator predicts high-value information-gathering actions from client-agnostic telemetry alone. Validation uses two structurally distinct downstream consumers — a hierarchical reinforcement learner and a hybrid A*/heuristic planner — establishing the architectural claim that the middleware is genuinely client-agnostic.</p>
     </div>
 
     <div class="pillar-card">
-      <div class="pillar-tag">Pillar 3 — Behavioural Control</div>
-      <div class="pillar-icon">🎛️</div>
-      <h3>Steering Conversational Behaviour Under Constraints</h3>
-      <p><strong>RQ:</strong> How can we achieve fine-grained, adaptive, and interpretable behavioural control over multi-turn conversational AI for information-seeking dialogue under protocol constraints?</p>
-      <p style="margin-top:0.8rem"><strong>What:</strong> A systematic exploration of seven candidate control mechanisms for modulating interviewing behaviour — from Representation Engineering (RepE) with RL-controlled compositional concept weights, through hybrid sensor-actuator architectures, to lightweight Thompson Sampling bandits and RAG-based dynamic prompting — all evaluated against the same DT-based metrics.</p>
-      <p style="margin-top:0.8rem"><strong>Why it's needed:</strong> LLMs generate fluent text but offer limited mechanisms for controlling <em>how</em> they generate. Cognitive interviewing requires simultaneous balancing of openness, semantic novelty, probing depth, context reinstatement, and leading-tendency suppression — a compositional, dynamic, multi-turn control problem that no single existing method fully solves. The controlled variable is the agent's own questioning behaviour (strategy selection, category targeting, question phrasing), not the human's internal state. The steering policy regulates information flow by adapting what the agent does in response to observable flow signals, rather than by attempting to diagnose or modulate the interviewee's cognition.</p>
-      <p style="margin-top:0.8rem"><strong>How:</strong> The research formalises cognitive interviewing as a constrained MDP with DT signals as state observations and multi-objective rewards. Each approach makes different trade-offs between interpretability, sample efficiency, fine-grained control, and stability. The design space spans RepE activation steering, prompt engineering, latent action learning (CoLA), and RAG-based knowledge grounding — providing the community with a systematic map, not a single "best" solution.</p>
+      <div class="pillar-tag">Pillar 3 — Assurance</div>
+      <div class="pillar-icon">🛡️</div>
+      <h3>Compositional Assurance: The Admission Boundary</h3>
+      <p><strong>RQ3:</strong> Under what formal conditions can runtime natural language be admitted into an autonomous control pipeline such that the downstream controller's existing assurance guarantees are preserved?</p>
+      <p style="margin-top:0.8rem"><strong>What:</strong> A Compositional Assurance Framework that formalises the admission boundary through two explicit architectural interfaces. A <em>Certification Gate</em> admits language-derived content only when acquisition is sufficiently complete and not degraded — a per-category predicate conjoining a sufficiency condition on the AST progress observable with a health condition on the AST friction observable. A <em>Signal Contract</em> transforms certified content into bounded, well-typed controller-facing objects whose structural conditions match downstream controller assumptions.</p>
+      <p style="margin-top:0.8rem"><strong>Why it is needed:</strong> Once runtime language is allowed to influence control, language-side uncertainty and controller behaviour become entangled. Without an explicit admission boundary, failures originating in acquisition, interpretation, or translation are indistinguishable from control failures. A formal interface theory is required to make these failure modes separable and to allow language-driven autonomy to compose with existing assurance methods rather than override them.</p>
+      <p style="margin-top:0.8rem"><strong>How:</strong> Under explicit acquisition-side assumptions (cooperativeness, minimum gain, within-episode stationarity), the framework proves a Compositional Bounded-Input Assurance Theorem covering certified admission, bounded signal construction, policy invariance under potential-based shaping, one-step safety under option filtering, and graceful fallback when certification fails. The theorem is instantiated for two structurally different controller classes — tabular Q-learning and PID control — demonstrating that the same admission logic applies across discrete decision-making and continuous feedback control. The contribution is architectural rather than algorithmic: it does not verify the semantics of language but formalises the interface through which language-derived content becomes admissible input.</p>
     </div>
 
   </div>
@@ -543,43 +557,42 @@ code {
   <div class="divider"></div>
 
   <!-- ============================================== -->
-  <!--  PART 5: HOW THEY CONNECT                      -->
+  <!--  PART 5: HOW THEY COMPOSE                      -->
   <!-- ============================================== -->
   <div class="section-header">
     <div class="section-number">Part V</div>
-    <h2>How the Pillars Interlock</h2>
+    <h2>How the Pillars Compose</h2>
   </div>
 
-  <p>The three pillars are not independent papers stapled together — they form a <strong>closed-loop architecture</strong> for autonomous knowledge acquisition:</p>
+  <p>The three pillars are not three papers stapled together. They form a single chain in which each layer's output is the next layer's structured input, and the same task schema Ω threads through all three. The composition is what licenses the assurance argument; the layered architecture is what makes the composition modular.</p>
 
   <div class="flow-container">
     <div class="flow-node">
+      <h4>Pillar 1 · Observability (AST)</h4>
+      <p>After each acquisition exchange, a scorer estimates the per-category acquisition state from verbal evidence; AST exposes a prospective progress observable P<sub>t</sub> and a retrospective friction observable F<sub>t</sub> over the resulting trajectory. The controller receives the telemetry; the cost of friction is left to the task.</p>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node">
       <h4>Pillar 2 · Grounding (LUCIFER)</h4>
-      <p>Agent arrives at an information source. Language middleware converts streaming verbal reports into navigational constraints, reward potentials, and query predictions — all through a client-agnostic signal contract.</p>
+      <p>The Context Extractor maps streaming verbal reports into structured semantic objects validated against Ω. The Signal Contract transduces these objects into bounded mathematical signals — priors, potentials, constraints, action predictions.</p>
     </div>
     <div class="flow-arrow">↓</div>
     <div class="flow-node">
-      <h4>Pillar 1 · Measurement (Dialogue Telemetry)</h4>
-      <p>During the interview, DT instruments each turn. PE quantifies how much useful information remains per category. SI flags when questioning becomes unproductive. These signals are exposed as real-time observables.</p>
-    </div>
-    <div class="flow-arrow">↓</div>
-    <div class="flow-node">
-      <h4>Pillar 3 · Behavioural Control</h4>
-      <p>An RL policy (or bandit, or RAG system) consumes DT signals as state observations, selects the next questioning strategy and concept emphasis, and generates the next question — adapting dynamically to maximise information gain while maintaining protocol adherence.</p>
+      <h4>Pillar 3 · Assurance (Certification Gate + Signal Contract)</h4>
+      <p>For each category, the Certification Gate releases content to the signal layer only when the AST progress observable has crossed the <em>task-set</em> sufficiency threshold and the AST friction observable remains below the <em>task-set</em> friction tolerance — both thresholds are configuration parameters, not universal verdicts on the trajectory. The Signal Contract then guarantees that all admitted controller inputs are bounded and well-typed by construction.</p>
     </div>
     <div class="flow-arrow">↓</div>
     <div class="flow-node" style="border-color: var(--accent);">
-      <h4>Closed Loop</h4>
-      <p>The response updates the DT state, which informs the next control decision. Grounded language from new verbal reports can arrive at any time, dynamically updating the agent's constraints and priorities mid-conversation.</p>
+      <h4>Downstream Controller (Q-learning, PID, planner, …)</h4>
+      <p>Receives only certified, bounded signals. Existing controller-side assurance theory (policy invariance, safety filters, contract-based design) remains applicable without modification.</p>
     </div>
   </div>
 
-  <p>This layered architecture mirrors mature control domains: Pillar 1 is the <em>sensor suite</em> (telemetry), Pillar 2 is the <em>perception layer</em> (language grounding), and Pillar 3 is the <em>controller</em> (behavioural policy). The contribution is not just each layer individually, but the demonstration that they compose into a functioning system.</p>
+  <p>This layered structure mirrors mature control domains. Pillar 1 is the <em>observability layer</em> over the acquisition process, Pillar 2 is the <em>grounding middleware</em> over verbal content, and Pillar 3 is the <em>admission and contract boundary</em>. The contribution is not just each layer individually, but the demonstration that they compose into a chain in which language influences control only through interfaces whose guarantees are strong enough to support downstream assurance theory.</p>
 
   <div class="callout gold">
-    <div class="callout-label gold">The Evaluation Infrastructure Gap</div>
-    <p>Demonstrating the full closed loop requires an interviewee that <em>reacts</em> to how the agent asks questions. The current validation environment uses a static, pre-generated corpus — sufficient for component-level validation of DT and LUCIFER individually, but fundamentally unable to capture the interaction effect that makes adaptive steering meaningful: <strong>how you ask should change what you get back</strong>.</p>
-    <p style="margin-top:0.6rem">This is the classic controller-vs-plant problem. The PhD builds the controller; what was missing is a credible plant model. A collaborative MSc project (Summer 2026) is constructing a <strong>reactive, persona-configurable LLM interviewee simulator</strong> — grounded in distributional statistics from real task-oriented human communication — that exposes the same interface as the current static environment. If it succeeds, every downstream evaluation becomes stronger. If it partially succeeds, even approximate behavioural realism improves on deterministic lookup. If it fails entirely, the existing static corpus remains valid — all published results already use it. The intellectual contributions of the PhD stand independently of the simulator's fidelity; the simulator determines <em>how convincingly</em> the integration can be demonstrated, not <em>whether</em> the architecture works.</p>
+    <div class="callout-label gold">The Evaluation Infrastructure</div>
+    <p>Component-level validation (AST observability across SAR, transactional, spatial, and reflective settings; LUCIFER grounding under messy reports; controller instantiations of the assurance theorem) uses controlled simulation environments and curated corpora. Integration-level validation requires an information source that <em>reacts</em> to how the agent acquires — the classic plant-vs-controller problem of any closed-loop study. A collaborative MSc project (Summer 2026) is constructing a reactive, persona-configurable LLM information source that exposes the same interface as the current static environment. The intellectual contributions of the PhD stand independently of the simulator's fidelity; the simulator determines <em>how convincingly</em> the integration can be demonstrated, not <em>whether</em> the architecture works. The same modular separation that governs the technical layers governs the research infrastructure itself.</p>
   </div>
 
   <div class="divider"></div>
@@ -592,9 +605,9 @@ code {
     <h2>The Research Outputs</h2>
   </div>
 
-  <p>Each pillar is realised through concrete, published or submitted works. Two additional pieces extend the programme into supporting capabilities.</p>
+  <p>Each pillar is realised through concrete publications and submissions. Three further outputs extend the programme into adjacent intellectual territory — generalising one of the telemetry signals, instrumenting the human side of the loop, and building the plant model required for integration testing. Together they constitute the narrative arc of the thesis: independent contributions that, taken in sequence, motivate and resolve the Triple Barrier Problem.</p>
 
-  <!-- Work 1 -->
+  <!-- Work 1 — Foundational SMC -->
   <div class="work-entry">
     <div class="work-meta">
       <span class="badge">Published · IEEE SMC 2024</span>
@@ -602,74 +615,100 @@ code {
       <span class="badge gold">Foundation</span>
     </div>
     <h3>Selective Exploration and Information Gathering in Search and Rescue Using Hierarchical Learning Guided by Natural Language Input</h3>
-    <p>The foundational paper that established the architecture. Introduced the integration of LLMs with hierarchical RL for SAR, demonstrating how verbal inputs from human stakeholders can be transformed into actionable RL insights via an Information Space, Context Extractor, Strategic Decision Engine, and Attention Space. Showed that language-infused hierarchical agents outperform flat RL agents — especially in sparse-reward environments — and that domain-knowledge infusion via RAG produces properly grounded outputs.</p>
+    <p>The foundational paper that established the architecture. It introduced the integration of LLMs with hierarchical reinforcement learning for SAR, demonstrating how verbal inputs from human stakeholders can be transformed into actionable RL insights via an Information Space, Context Extractor, Strategic Decision Engine, and Attention Space. Language-infused hierarchical agents were shown to outperform flat RL agents — especially in sparse-reward environments — and domain-knowledge infusion via RAG produced properly grounded outputs.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Established that language-guided hierarchical decision-making is viable and that attention-based policy shaping from verbal inputs improves both performance and safety. Set up the Information Space formalism reused across all subsequent works.</li>
+      <li><strong>Contribution to the arc:</strong> Established that language-guided hierarchical decision-making is viable and that attention-based policy shaping from verbal inputs improves both performance and safety. Introduced the Information Space formalism that recurs in all subsequent works as the structural carrier of schema-based information requirements.</li>
     </ul>
   </div>
 
-  <!-- Work 2 -->
+  <!-- Work 2 — LUCIFER -->
   <div class="work-entry">
     <div class="work-meta">
       <span class="badge warm">Submitted · IEEE Journal</span>
       <span class="badge purple">Pillar 2 — Grounding</span>
     </div>
-    <h3>LUCIFER: Grounding and Discovery Services for Language-Assisted Decision-Making — A Signal Contract Architecture</h3>
-    <p>The full maturation of the grounding layer. Formalises language grounding as training-decoupled middleware with a four-signal contract (priors, potentials, constraints, action predictions). Validates robustness on messy, self-correcting language (91-100% accuracy where pattern-matching baselines collapse to 20-36%), and demonstrates client-agnosticism with two structurally distinct downstream consumers. Introduces the Discovery service for telemetry-based query prediction.</p>
+    <h3>A Signal Contract for Online Language Grounding and Discovery in Decision-Making (LUCIFER)</h3>
+    <p>The full maturation of the grounding layer. Formalises online language grounding as training-decoupled middleware exposing a four-signal contract (priors, potentials, constraints, action predictions). Component benchmarks show that reasoning-based extraction remains robust on self-correcting reports (91–100% accuracy) where pattern-matching baselines collapse (20–36%). System-level dual-client ablations — hierarchical RL and hybrid A*/heuristic planner — establish a clear pattern: grounding improves safety, discovery improves efficiency, and only their combination achieves both.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Proved that language can be <em>externalised</em> from the decision-maker through a stable mathematical interface, enabling safe and efficient behaviour without embedding NLP inside the controller. The dual-client validation demonstrates the approach is architectural, not algorithm-specific.</li>
+      <li><strong>Contribution to the arc:</strong> Proved that language can be <em>externalised</em> from the decision-maker through a stable mathematical interface, enabling safe and efficient behaviour without embedding NLP inside the controller's optimisation loop. The dual-client validation demonstrates that the approach is architectural, not algorithm-specific. LUCIFER's Exploration Facilitator consumes the same trajectory traces that AST exposes, and LUCIFER's Signal Contract becomes the output boundary of the assurance framework in Pillar 3.</li>
     </ul>
   </div>
 
-  <!-- Work 3 -->
+  <!-- Work 3 — AST -->
   <div class="work-entry">
     <div class="work-meta">
       <span class="badge warm">Submitted · IEEE Journal</span>
-      <span class="badge">Pillar 1 — Measurement</span>
+      <span class="badge">Pillar 1 — Observability</span>
     </div>
-    <h3>Dialogue Telemetry: Turn-Level Instrumentation for Autonomous Information Gathering</h3>
-    <p>Defines and validates the measurement framework. Introduces PE (Progress Estimator) in two forms — heuristic expected-gain and Shannon-based expected information gain (bits) — and SI (Stalling Index) combining discrete repetition with semantic similarity analysis. Demonstrates that DT accurately distinguishes efficient from stalled dialogue traces (100% detection, 0% false positives in controlled scenarios) and improves RL policy performance when stalling carries operational costs.</p>
+    <h3>Acquisition-State Telemetry for Autonomous Information Gathering</h3>
+    <p>Defines and validates the observability layer. Frames human-information acquisition as a state trajectory observed through a controller-facing telemetry interface, with an explicit architectural separation between three roles that the literature typically conflates: acquisition-state estimation from source evidence, trajectory-level telemetry over that state, and domain-specific interpretation inside a downstream controller. The fixed instantiation evaluated here pairs a prospective Bayesian progress observable (PE<sup>B</sup>) with a retrospective subspace-residual friction observable (SI<sup>⊥</sup>); the architectural novelty is the interface, not these particular forms. Validation under a single fixed calibration spans four qualitatively different acquisition regimes — controlled SAR elicitation, transactional slot filling (MultiWOZ), collaborative spatial grounding (HCRC Map Task), and reflective interviewing — and a SAR reinforcement-learning study in which the same telemetry layer drives a downstream controller when acquisition friction carries operational cost.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Provided the <em>sensor suite</em> for the entire programme. PE and SI are the state observations consumed by all Pillar 3 control approaches. The ablation reveals that SI penalties help when stalling triggers failure (Condition B) but hinder when it doesn't (Condition A) — a nuanced finding about when telemetry should shape reward vs. merely inform observation.</li>
+      <li><strong>Contribution to the arc:</strong> Supplies the <em>observability layer</em> on which the entire programme depends. PE and SI are the controller-facing observables that the Certification Gate consumes in Pillar 3. The deliberate refusal to treat friction as failure is what makes the layer transferable: the same interface produces interpretable readings under SAR mechanics where recurrence is costly and under collaborative-grounding mechanics where recurrence is part of how grounding is achieved. The downstream RL study confirms that the layer is not only a diagnostic but an actionable signal whenever the task assigns a cost to low-yield acquisition.</li>
     </ul>
   </div>
 
-  <!-- Work 4 -->
+  <!-- Work 4 — Assurance / RA-L -->
   <div class="work-entry">
     <div class="work-meta">
-      <span class="badge warm">Submitted · IEEE Conference</span>
-      <span class="badge blue">Supporting — Priority Adaptation</span>
+      <span class="badge warm">Submitted · IEEE RA-L</span>
+      <span class="badge blue">Pillar 3 — Assurance</span>
     </div>
-    <h3>CA-MIQ: Context-Aware Max-Information Q-Learning for Priority-Driven Information Gain</h3>
-    <p>Addresses what happens <em>after</em> information is gathered: how does an agent adapt when mission priorities shift? Introduces a dual-critic RL framework where an intrinsic critic fuses state-novelty, information-location awareness, and real-time priority alignment, with a shift detector triggering transient exploration boosts and selective critic resets. Achieves nearly 4× higher mission success rates than baselines after priority shifts and 100% recovery where baselines fail.</p>
+    <h3>A Compositional Assurance Framework for Admitting Runtime Natural Language into Autonomous Control Pipelines</h3>
+    <p>The capstone formal contribution. Introduces two explicit architectural interfaces — Certification Gate and Signal Contract — and proves a Compositional Bounded-Input Assurance Theorem with seven properties: acquisition convergence, degradation detection, bounded downstream inputs, policy invariance under potential-based shaping, one-step safety under option filtering, graceful degradation, and partial coverage. Instantiated for tabular Q-learning and PID control, showing that the same admission logic applies across structurally different controller classes.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Extends the Information Space formalism to handle <em>dynamic</em> priority orderings. Demonstrates that the information structures established in the foundational work can be made responsive to evolving mission context — a critical requirement for real-world deployment where "what matters" changes as new intelligence arrives.</li>
+      <li><strong>Contribution to the arc:</strong> Provides the <em>formal interface theory</em> that turns the empirical demonstrations of AST and LUCIFER into a compositional assurance chain. The contribution is intentionally narrow: it does not verify the semantics or truth of runtime language. It formalises the admission boundary through which language-derived content becomes controller-facing input, and shows how guarantees at that boundary compose with existing downstream controller theory.</li>
     </ul>
   </div>
 
-  <!-- Work 5 -->
+  <!-- Work 5 — Latent Absorption / Phase-space telemetry -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge gold">Draft · NeurIPS-targeted</span>
+      <span class="badge">Pillar 1 — Extension</span>
+    </div>
+    <h3>Phase-Space Telemetry for Detecting Low-Yield Collapse in Temporal Representation Trajectories</h3>
+    <p>A generalisation of the AST friction observable into a four-quadrant phase-space decomposition of temporal latent trajectories. Two quantities — orthogonal/support novelty (ON) and task-useful yield (Y) — induce four regimes: <em>Productive Expansion</em> (novel and useful), <em>Latent Absorption</em> (recurrent and useless), <em>Unproductive Expansion</em> (novel but useless), and <em>Useful Recurrence</em> (recurrent but useful). The decomposition makes explicit a distinction that AST already implies but does not name: recurrence is not a single phenomenon, and whether it is operationally desirable depends on which quadrant it occupies. Diagnostic validation across synthetic trajectories, scripted 2D navigation, and learned PPO policies shows that the four regimes correspond to distinct, otherwise-conflated failure modes. Online phase-aware shaping demonstrates that penalising Latent Absorption provides a phase-specific escape signal that improves sparse-reward discovery without adding dense progress reward, while LA-only shaping can redirect failure into Unproductive Expansion — motivating the full decomposition.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> Lifts the AST friction observable into a reusable phase-space language for temporal representation dynamics across reinforcement learning more broadly. The original SI⊥ persists as a measurement that lives within one quadrant of a richer decomposition. The phase-space framing inherits AST's central commitment: the telemetry classifies the trajectory, the downstream task decides which quadrants are operationally acceptable. This is the clearest demonstration of the portability claim: an observable designed for human-information acquisition transferred, with its mathematical structure and its interpretive neutrality intact, into representation-level diagnosis of learning agents.</li>
+    </ul>
+  </div>
+
+  <!-- Work 6 — Behavioural control design space (CI Interview Report) -->
+  <div class="work-entry">
+    <div class="work-meta">
+      <span class="badge gold">Design Report</span>
+      <span class="badge purple">Adjacent — Controller Design</span>
+    </div>
+    <h3>Behavioural Control for Information-Seeking Dialogue: A Systematic Design Space</h3>
+    <p>An adjacent design study that takes seriously the question of which controller, once the assurance framework has admitted a category, should produce the next questioning behaviour. The report formalises cognitive interviewing as a multi-objective constrained control problem with AST observables as state inputs and protocol violations as constraints, and systematically maps seven candidate approaches across the design space: Representation Engineering with RL-controlled compositional concept weights, hybrid RepE-sensor / prompt-actuator architectures, enhanced RepE with orthogonalised bases (RePS), learned latent action codes (CoLA), Thompson-sampling style modulation, end-to-end RL prompt generation, and RAG-based dynamic prompting.</p>
+    <ul>
+      <li><strong>Contribution to the arc:</strong> The Compositional Assurance Theorem is controller-class agnostic by construction; its instantiations in the thesis use Q-learning and PID precisely because their admissibility conditions are well-established. The design space report is the open companion to this choice: it surveys the controllers that <em>could</em> sit downstream of the certification gate and the trade-offs each presents between interpretability, sample efficiency, fine-grained control, and stability. Empirical comparison across this design space is identified as a downstream research thread rather than a thesis chapter.</li>
+    </ul>
+  </div>
+
+  <!-- Work 7 — ITLI -->
   <div class="work-entry">
     <div class="work-meta">
       <span class="badge gold">Draft</span>
-      <span class="badge blue">Supporting — Human Factors</span>
+      <span class="badge blue">Adjacent — Human-side Instrumentation</span>
     </div>
     <h3>ITLI: An LLM-Derived Intrinsic Task-Load Index for Cognitive Load Estimation</h3>
-    <p>Bridges cognitive science and AI engineering. Proposes computing intrinsic cognitive load from textual information streams by having an LLM extract linguistically-grounded features (entity count, relation count, temporal/conditional clauses, quantitative constraints, token complexity) mapped to Sweller's element-interactivity scale. Offers a scalable, non-intrusive alternative to physiological sensors or subjective surveys.</p>
+    <p>A complementary instrumentation study addressing the human side of the loop. Cognitive Load Theory identifies <em>element interactivity</em> — the number of interdependent information components held jointly in working memory — as the operational determinant of intrinsic load. ITLI operationalises element interactivity from textual information streams using an LLM to extract linguistically grounded features (entity count, relation count, temporal/conditional clauses, quantitative constraints, token complexity) mapped via a weighted integration to a 0–100 task-load index.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Addresses the <em>human side</em> of human-robot teaming. If the agent can estimate how much cognitive bandwidth an upcoming information stream demands, it can pace delivery, defer handoffs, or raise autonomy. ITLI complements DT (which monitors conversation health) with a signal about the human's capacity to process what the agent communicates.</li>
+      <li><strong>Contribution to the arc:</strong> AST instruments the acquisition state the system is <em>obtaining</em> from the human source; ITLI estimates the cognitive demand the system is <em>about to impose on</em> the human operator. The two are duals at opposite ends of the same channel and share a single methodological commitment — instrument the observable, do not infer the latent. ITLI does not enter the assurance chain because its outputs are not bounded controller inputs in the formal sense; it is positioned instead as an observability signal for variable-autonomy and adaptive presentation, with a clearly demarcated scope.</li>
     </ul>
   </div>
 
-  <!-- Work 6 -->
+  <!-- Work 8 — MSc Simulator -->
   <div class="work-entry">
     <div class="work-meta">
-      <span class="badge gold">Draft / Design Report</span>
-      <span class="badge warm">Pillar 3 — Behavioural Control</span>
+      <span class="badge gold">MSc · Summer 2026</span>
+      <span class="badge blue">Infrastructure</span>
     </div>
-    <h3>Behavioural Control for Information-Seeking Dialogue: A Systematic Design Space Exploration</h3>
-    <p>The capstone design report. Formalises cognitive interviewing as a multi-objective constrained control problem and systematically maps seven candidate approaches spanning the full design space: (a) Original RepE with RL-controlled concept weights, (b) Hybrid RepE-Sensor + Prompt-Actuator, (c) RePS (enhanced vector identification with orthogonalisation), (d) CoLA (learned latent action codes), (e) Adaptive Style Modulation via Thompson Sampling, (f) Prompt-R1 (end-to-end RL prompt generation), and (g) RAG-Based Dynamic Prompting. Each is formalised as an MDP, with architectural diagrams, theoretical strengths/limitations, and connections to DT-based evaluation metrics.</p>
+    <h3>High-Fidelity LLM-Based Interviewee Simulation for Task-Oriented Information Gathering</h3>
+    <p>A collaborative MSc project building a reactive, persona-configurable LLM interviewee simulator whose behavioural characteristics are empirically grounded in distributional statistics from real task-oriented human communication. The persona specification covers cooperativeness, per-category knowledge completeness, stress level, verbosity, and recall fidelity; the simulator exposes the same programmatic interface as the existing static corpus environment so that all PhD code operates without modification. Distributional fidelity is evaluated against literature-derived baselines through Wasserstein and KL divergences over a defined behavioural feature taxonomy.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Provides the <em>control layer</em> that consumes DT signals and actuates dialogue behaviour. Rather than advocating a single approach, it maps the full solution space — enabling principled empirical comparison. The shared DT-based evaluation framework (PE for information gain, SI for stalling, violation detection for protocol adherence) unifies assessment across approaches.</li>
+      <li><strong>Contribution to the arc:</strong> In any closed-loop study, the researcher implicitly builds both the controller and the plant. This project externalises the plant. The PhD's intellectual contributions stand independently of the simulator's fidelity, but a credible plant model is what makes adaptive integration-level evaluation rigorous rather than merely illustrative. The persona configuration is treated as an initial condition rather than a state variable; modelling persona <em>dynamics</em> in response to interviewer behaviour is identified as a frontier requiring validated computational models of interviewer–interviewee co-regulation, and is explicitly out of scope.</li>
     </ul>
   </div>
 
@@ -680,10 +719,10 @@ code {
   <!-- ============================================== -->
   <div class="section-header" id="transfer">
     <div class="section-number">Part VII</div>
-    <h2>Transfer Beyond SAR — Why This Matters Generally</h2>
+    <h2>Transfer Beyond Search and Rescue</h2>
   </div>
 
-  <p>SAR is the testbed, not the boundary. Every contribution in this PhD addresses a <strong>general pattern</strong> that recurs wherever autonomous systems interact with language-rich, human-populated environments:</p>
+  <p>SAR is the testbed because it concentrates the problem; it is not the boundary of the contribution. Each pillar addresses a general pattern that recurs wherever autonomous systems interact with language-rich, human-populated environments. The table below makes the abstraction explicit.</p>
 
   <table class="transfer-table">
     <thead>
@@ -696,41 +735,41 @@ code {
     </thead>
     <tbody>
       <tr>
-        <td><strong>Dialogue Telemetry</strong> (PE + SI)</td>
-        <td>Monitoring witness interviews for stalling and information coverage</td>
-        <td>Turn-level instrumentation for any schema-grounded information-gathering dialogue</td>
-        <td>Medical intake, insurance claims, investigative journalism, customer support, educational tutoring</td>
+        <td><strong>Acquisition-State Telemetry</strong> (PE + SI)</td>
+        <td>Exposing the SAR acquisition state — progress per category, friction over recent exchanges — to the controller</td>
+        <td>Controller-facing observability over any schema-grounded acquisition process, deliberately neutral about the operational cost of friction</td>
+        <td>Transactional dialogue, collaborative spatial grounding, reflective interviewing, medical intake, investigative interviewing, supervisory teaming, intelligent tutoring</td>
       </tr>
       <tr>
         <td><strong>Signal Contract</strong> (LUCIFER)</td>
-        <td>Converting hazard/victim reports into navigational constraints</td>
-        <td>Training-decoupled middleware for converting streaming language into control-relevant signals</td>
-        <td>Any robotic system receiving verbal instructions or reports — warehouse logistics, autonomous vehicles, agricultural robots</td>
+        <td>Converting hazard/victim reports into navigational priors, potentials, and admissible-option constraints</td>
+        <td>Training-decoupled middleware for converting streaming language into client-agnostic control-relevant signals</td>
+        <td>Warehouse logistics, agricultural robotics, autonomous vehicles receiving runtime instructions, language-conditioned planners</td>
       </tr>
       <tr>
-        <td><strong>Information Space + Priority Dynamics</strong> (CA-MIQ)</td>
-        <td>Adapting to shifting SAR mission priorities</td>
-        <td>Piecewise-stationary priority adaptation for information-directed exploration</td>
-        <td>Dynamic resource allocation, adaptive surveying, intelligence analysis, clinical triage prioritisation</td>
+        <td><strong>Compositional Assurance</strong></td>
+        <td>Certifying admission of witness-derived hazard information into a SAR controller</td>
+        <td>Interface-level assurance for runtime language entering any pre-assured controller class</td>
+        <td>Any safety-critical system admitting natural-language input — flight management auxiliaries, medical decision support, supervisory autonomy</td>
       </tr>
       <tr>
-        <td><strong>Behavioural Control Design Space</strong></td>
-        <td>Steering cognitive interview behaviour</td>
-        <td>Fine-grained, adaptive, interpretable control of LLM generation under multi-objective constraints</td>
-        <td>Any high-stakes conversational AI — therapy chatbots, negotiation agents, legal deposition assistants, educational dialogues</td>
+        <td><strong>Phase-Space Telemetry</strong></td>
+        <td>Generalising the AST friction observable into a four-regime diagnostic over response geometry</td>
+        <td>Trajectory-level telemetry decomposing temporal latent dynamics into productive, absorbed, unproductive, and recurrent regimes — with the task deciding which regimes are operationally undesirable</td>
+        <td>Sparse-reward RL diagnostics, sequence-model failure analysis, exploration-shaping in any agent with a latent representation</td>
       </tr>
       <tr>
-        <td><strong>ITLI</strong> (Cognitive Load Estimation)</td>
-        <td>Estimating operator cognitive load from mission reports</td>
-        <td>Non-intrusive cognitive bandwidth estimation from textual information streams</td>
-        <td>Adaptive UIs, variable autonomy, intelligent tutoring, accessibility systems</td>
+        <td><strong>ITLI</strong></td>
+        <td>Estimating intrinsic load of incoming mission reports for operators</td>
+        <td>Non-intrusive bandwidth estimation from textual information streams using an LLM as a feature extractor over CLT-grounded cues</td>
+        <td>Adaptive UIs, variable autonomy, instructional design, accessibility systems</td>
       </tr>
     </tbody>
   </table>
 
   <div class="callout gold">
     <div class="callout-label gold">The Unifying Principle</div>
-    <p>The PhD's deepest contribution is the <strong>recognition that autonomous knowledge acquisition from humans requires the same engineering discipline as physical control</strong>: you need sensors (DT), a perception layer (LUCIFER), and a controller (behavioural policy) — and they must be modular, composable, and independently validated. This architectural pattern transfers wholesale to any domain where agents must gather, monitor, and act on human-communicated knowledge.</p>
+    <p>The thesis's deepest commitment is the recognition that <strong>admitting human knowledge into autonomous control requires the same engineering discipline as physical control</strong>: observability, grounding, and a certified admission interface — each modular, each composable, each independently validated. The measurement layer reports the acquisition trajectory; it does not adjudicate it. The grounding middleware translates language into bounded mathematical objects; it does not embed itself inside the controller. The assurance framework formalises the interface; it does not verify the semantics of language. This architectural separation is what transfers wholesale to any domain in which agents must observe, admit, and act on human-communicated knowledge under operational constraints.</p>
   </div>
 
   <div class="divider"></div>
@@ -740,49 +779,47 @@ code {
   <!-- ============================================== -->
   <div class="section-header">
     <div class="section-number">Part VIII</div>
-    <h2>What Didn't Exist Before</h2>
+    <h2>What Did Not Exist Before</h2>
   </div>
 
-  <p>To be precise about the new knowledge this PhD produces:</p>
+  <p>To be precise about the new knowledge produced by this PhD:</p>
 
   <div class="callout">
     <div class="callout-label teal">New Contributions</div>
-    <p><strong>1. Turn-level telemetry for goal-directed dialogue.</strong> PE and SI are the first model-agnostic, real-time signals designed for schema-grounded information gathering that work both as diagnostic readouts and as RL policy observations.</p>
-    <p style="margin-top:0.6rem"><strong>2. Training-decoupled language grounding via signal contracts.</strong> LUCIFER is the first middleware to formalise a client-agnostic mathematical interface between streaming language and heterogeneous decision-makers, validated across learning and non-learning paradigms.</p>
-    <p style="margin-top:0.6rem"><strong>3. Priority-adaptive information-gain exploration.</strong> CA-MIQ is the first information-gain-driven exploration strategy that responds to piecewise-stationary shifts in mission-level priorities.</p>
-    <p style="margin-top:0.6rem"><strong>4. Systematic design space for behavioural control of information-seeking dialogue.</strong> The seven-approach comparison, unified by DT-based evaluation metrics, provides the first systematic map of how to steer LLM questioning behaviour under multi-objective constraints.</p>
-    <p style="margin-top:0.6rem"><strong>5. LLM-based intrinsic cognitive load estimation.</strong> ITLI is the first attempt to computationally estimate element interactivity from textual information streams using LLMs.</p>
+    <p><strong>1. Acquisition-State Telemetry as a controller-facing observability interface.</strong> AST is the first model-agnostic, after-exchange measurement contract that separates source-evidence state estimation, trajectory-level telemetry, and downstream control interpretation — exposing a prospective progress observable and a retrospective friction observable without committing to whether friction is operationally bad.</p>
+    <p style="margin-top:0.6rem"><strong>2. Training-decoupled language grounding via a client-agnostic Signal Contract.</strong> LUCIFER is the first middleware to formalise a stable mathematical interface between streaming language and heterogeneous decision-makers, validated across learning and non-learning paradigms.</p>
+    <p style="margin-top:0.6rem"><strong>3. Compositional assurance for the language-to-control admission boundary.</strong> The Certification Gate and Signal Contract, together with the Compositional Bounded-Input Assurance Theorem, are the first interface-level formal account of how runtime natural language may enter an assured control pipeline without collapsing downstream assurance into the semantics of language.</p>
+    <p style="margin-top:0.6rem"><strong>4. Phase-space decomposition of temporal representation trajectories.</strong> A generalisation of the AST friction observable into a novelty–yield phase space (PE / LA / UE / UR) that distinguishes failure modes which novelty-only, reward-only, or absorption-only metrics conflate — preserving AST's commitment that the telemetry classifies and the controller adjudicates.</p>
+    <p style="margin-top:0.6rem"><strong>5. LLM-based intrinsic cognitive load estimation.</strong> ITLI is the first attempt to compute element interactivity directly from textual information streams using an LLM as a feature extractor over CLT-grounded linguistic cues.</p>
   </div>
 
   <div class="callout warm">
-    <div class="callout-label warm">What Is NOT Claimed</div>
-    <p>This PhD does not claim to have solved "the physics of dialogue" or created a universally optimal interviewing agent. It claims to have built <strong>practical, validated tools</strong> — telemetry signals, a grounding middleware, and a design space of controllers — that are useful, computable, principled, and transferable. The deeper formalisations (e.g., continuous manifold structure for dialogue dynamics) remain future work.</p>
-    <p style="margin-top:0.6rem">A critical distinction: <strong>this work regulates information flow, not human communicative capacity.</strong> The thesis formalisation includes a latent variable C(t) representing the human's effective transmission capacity, which can degrade under inappropriate querying. This is an empirically motivated abstraction drawn from neurocognitive and crisis-communication literature — not a variable the system claims to measure, estimate, or directly control. The Information Extraction Paradox (that urgency degrades the human's ability to provide information) motivates <em>why</em> adaptive strategy selection is necessary. DT and steering implement adaptation by monitoring observable information-flow symptoms (residual gaps, revisitation, low gain) and responding with strategy changes. Whether those strategy changes also benefit the human's internal state is a plausible hypothesis supported by the interviewing literature, but proving it would require validated models of how interviewer behaviour affects interviewee cognition — a question at the intersection of computational psycholinguistics and control theory that lies beyond the scope of this engineering-focused thesis. The system acts as a thermostat for information flow: it detects deviations from productive exchange and actuates strategy changes, without diagnosing why the deviation occurred.</p>
+    <div class="callout-label warm">What Is Not Claimed</div>
+    <p>The thesis does not claim to have solved "the physics of dialogue", to have produced a universally optimal interviewing agent, or to have verified the semantics of runtime natural language. It claims to have built <strong>practical, validated tools</strong> — telemetry signals, a grounding middleware, and a compositional assurance framework — that are useful, computable, principled, and transferable.</p>
+    <p style="margin-top:0.6rem">A critical distinction: <strong>this work reads acquisition trajectories, not human communicative capacity.</strong> The formalisation includes a latent quantity C(t) representing the effective transmission capacity of the human–agent channel, which the literature suggests can be affected by interactional conditions. C(t) is acknowledged in the formal model but is not a variable that the system measures, estimates, or controls. Findings from psycholinguistics and crisis communication — that urgency can affect recall, that interaction style can affect cooperativeness — <em>motivate</em> the architectural choices but are not claims the thesis sets out to prove. AST reports the acquisition trajectory; the Certification Gate adjudicates that trajectory against thresholds set by the task; the Signal Contract bounds what reaches the controller. Whether the same observable trajectory patterns also reflect anything about the human's internal state, and whether the system's adaptations also benefit that state, are plausible hypotheses but lie at the intersection of computational psycholinguistics and control theory beyond the scope of an engineering thesis.</p>
   </div>
 
   <div class="divider"></div>
 
   <!-- ============================================== -->
-  <!--  PART 9: THE HONEST FRAMING                    -->
+  <!--  PART 9: PHILOSOPHY                            -->
   <!-- ============================================== -->
   <div class="section-header">
     <div class="section-number">Part IX</div>
     <h2>The Research Philosophy</h2>
   </div>
 
-  <p>This PhD was driven by a conviction that <strong>autonomous systems need to become active participants in the knowledge-gathering process</strong>, not passive recipients of pre-processed data. Humans naturally seek help when facing uncertainty — they ask questions, interview witnesses, consult experts. Robots should do the same, and they should do it well.</p>
+  <p>This PhD is driven by a conviction that <strong>autonomous systems must become active participants in the knowledge-acquisition process</strong>, not passive recipients of pre-processed data. Humans, when uncertain, ask questions, interview witnesses, and consult experts. Robots should do the same — and the channel through which they do so should be exposed to control through interfaces whose properties are formally characterised, not merely empirically demonstrated.</p>
 
-  <p>The path was not linear. The early inspiration came from an analogy between dialogue dynamics and fluid flow — the idea that conversations have "gradients" toward information and "circulation" when stuck. But formalising that analogy fully would require mathematical machinery beyond the scope of a single PhD. Instead, the work pivoted to <strong>computational proxies</strong> — PE and SI — that capture the <em>functional intent</em> of those metaphors using information theory and embedding geometry. This is the tractable, validated path rather than the imaginative but shallow one.</p>
+  <p>The path was not linear. The early inspiration came from an analogy between dialogue dynamics and fluid flow — the intuition that conversations have <em>gradients</em> toward information and <em>circulation</em> when stuck. Formalising that analogy in full would have required mathematical machinery beyond the scope of a single PhD, and would also have committed the thesis to a strong claim about dialogue itself rather than about the acquisition state induced by dialogue. The work therefore pivoted in two related ways. First, to <strong>computational proxies</strong> — PE<sup>B</sup>, SI<sup>⊥</sup>, and their phase-space generalisation — that capture the functional intent of those metaphors using information theory and embedding geometry. Second, and more deeply, to a reframing of the object itself: from <em>dialogue quality</em> to <em>acquisition state</em>. The observable is no longer "is this conversation going well?" but "where is the controller in its task-relevant information state, and how is that state evolving?". This is the difference between judging the exchange and instrumenting it. The former is normative and domain-specific; the latter is operational and transferable.</p>
 
-  <p>A related pivot shaped the thesis's relationship with psychology. The Information Extraction Paradox draws on well-established findings from neurocognition and crisis communication: that stress impairs recall, that aggressive questioning can reduce information quality, that interaction style affects communicative capacity. These findings <em>motivate</em> the engineering architecture but are not claims the thesis sets out to prove. The system monitors information flow — observable patterns in what the interviewee says — not the human's latent cognitive or emotional state. It regulates the agent's own behaviour (which questions to ask, in what style, targeting which knowledge gaps) based on those observable patterns. This is a deliberate engineering stance: treat the human side of the channel with respect for its complexity, instrument what is observable, and control what is controllable — namely, the agent's own actions. Validated models of how interviewer behaviour affects interviewee cognition would enable a deeper, truly co-regulatory architecture; this thesis identifies that as a frontier rather than claiming to have reached it.</p>
+  <p>A related pivot shaped the thesis's relationship with psychology. The literature on stress, recall, and crisis communication motivates the engineering architecture but is not what the thesis sets out to prove. AST observes the acquisition trajectory — what evidence has accumulated, what residual utility remains, whether recent exchanges are extending or recurring on existing content — not the human's latent cognitive or emotional state. It regulates nothing about the human and adjudicates nothing about the dialogue. It exposes the trajectory; the downstream controller decides what to do with it. This is a deliberate engineering stance: treat the human side of the channel with respect for its complexity, instrument what is observable, and control what is controllable — namely, the agent's own actions and the interfaces it exposes.</p>
 
   <blockquote>The tools work. The deeper mathematics remains for the future. And that is a mature, honest research contribution.</blockquote>
 
-  <p>Each component was designed with a principle: <strong>build frameworks others can extend, not just deliverables for a contracted project</strong>. The DT signals are model-agnostic. The Signal Contract is client-agnostic. The behavioural control design space is approach-agnostic. This modularity is intentional — it is what makes the work transferable beyond SAR, beyond any single application domain, and beyond the lifetime of this PhD.</p>
+  <p>Each component was designed with a single principle in mind: <strong>build frameworks others can extend, not just deliverables for a contracted project</strong>. The AST interface is sensor-pair agnostic and source-channel agnostic — the empirical sensor pair is one instantiation; the same interface produces interpretable readings across SAR, transactional dialogue, spatial grounding, and reflective interviewing under a single calibration. The Signal Contract is client-agnostic. The Assurance Theorem is controller-class agnostic. The phase-space telemetry is application-agnostic. This modularity is intentional. It is what makes the work transferable beyond SAR, beyond any single application domain, and beyond the lifetime of this PhD.</p>
 
-  <p>The same philosophy extends to the research infrastructure. In any multidisciplinary PhD, the researcher is effectively building both the controller <em>and</em> the plant model — a situation where, in most engineering research, one of these pre-exists. Recognising this, the evaluation infrastructure (a reactive, behaviourally grounded interviewee simulator) has been scoped as a self-contained collaborative project: the contributor builds the plant model without needing to understand the control theory, while the PhD researcher retains sole ownership of the intellectual contributions. This separation is deliberate — it mirrors the same modularity principle that governs the technical architecture itself.</p>
-
-  <p>The evaluation strategy reflects this scope honestly. Component-level validation (DT monitoring accuracy, LUCIFER grounding fidelity, steering policy performance) uses controlled simulation environments. Integration-level validation uses a reactive, persona-configurable simulator where different interviewee profiles present different information landscapes, and the steering policy must adapt its trajectory accordingly. This tests <strong>adaptive information-space navigation</strong> — the claim that DT-guided steering efficiently harvests available information across diverse interviewee types. It does not test whether steering regulates the human's internal capacity, which would require persona dynamics models that evolve in response to interviewer behaviour — a capability identified as immediate future work requiring validated computational models of interviewer–interviewee co-regulation.</p>
+  <p>The same philosophy governs the research infrastructure. In a multidisciplinary closed-loop PhD, the researcher implicitly builds both the controller and the plant. Recognising this, the evaluation infrastructure — a reactive, behaviourally grounded information-source simulator — has been scoped as a self-contained collaborative MSc project: the contributor builds the plant model without needing to understand the assurance theory, while the PhD researcher retains sole ownership of the intellectual contributions. This separation mirrors the architectural commitment that governs the technical layers themselves: every interface in this programme is designed so that what sits on either side of it can be built, validated, and replaced independently.</p>
 
   <div class="divider"></div>
 
@@ -794,15 +831,16 @@ code {
     <h2>The Research Arc in One Sentence</h2>
   </div>
 
-  <blockquote>This PhD develops the measurement, grounding, and control layers that enable autonomous agents to conduct, monitor, and adapt information-seeking conversations with humans — treating dialogue-based knowledge acquisition with the same engineering rigour applied to physical sensing and control.</blockquote>
+  <blockquote>This PhD develops the observability, grounding, and assurance layers through which an autonomous controller reads the schema-grounded acquisition trajectory induced in a human source — and admits the resulting content into control through certified, bounded interfaces — treating language as the evidence channel and the acquisition state as the object the controller reads, with the same engineering discipline applied to physical sensing, perception, and control.</blockquote>
 
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  <p>Dimitris Panagopoulos · Cranfield University · Faculty of Engineering and Applied Science</p>
+  <p>Dimitris Panagopoulos · Cranfield University · Faculty of Engineering and Applied Sciences</p>
+  <p style="margin-top:0.3rem">Supervisors: Prof. Weisi Guo &middot; Dr. Adolfo Perrusquía</p>
   <p style="margin-top:0.3rem">EPSRC iCASE with Thales UK (EP/X52475X/1)</p>
-  <p style="margin-top:0.5rem; font-size:0.75rem; color:var(--text-muted);">This document serves as a research agenda and narrative backbone for viva preparation and academic exposition.</p>
+  <p style="margin-top:0.5rem; font-size:0.75rem; color:var(--text-muted);">This document serves as the research agenda and narrative backbone for the PhD programme.</p>
 </div>
 
 </body>
