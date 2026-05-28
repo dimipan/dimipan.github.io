@@ -624,7 +624,7 @@ code {
   <!-- Work 1b — CA-MIQ / Learning What Matters Now -->
   <div class="work-entry">
     <div class="work-meta">
-      <span class="badge warm">Published · IEEE SMC 2025</span>
+      <span class="badge warm">Under submission · Conference</span>
       <span class="badge">Pillar 1 — Extension</span>
     </div>
     <h3>Learning What Matters Now: A Dual-Critic Context-Aware RL Framework for Priority-Driven Information Gain (CA-MIQ)</h3>
@@ -689,13 +689,13 @@ code {
   <!-- Work 5 — Latent Absorption / Phase-space telemetry -->
   <div class="work-entry">
     <div class="work-meta">
-      <span class="badge gold">Draft · NeurIPS-targeted</span>
+      <span class="badge gold">In preparation</span>
       <span class="badge">Pillar 1 — Extension</span>
     </div>
-    <h3>Phase-Space Telemetry for Detecting Low-Yield Collapse in Temporal Representation Trajectories</h3>
-    <p>A generalisation of the AST friction observable into a four-quadrant phase-space decomposition of temporal latent trajectories. Two quantities — orthogonal/support novelty (ON) and task-useful yield (Y) — induce four regimes: <em>Productive Expansion</em> (novel and useful), <em>Latent Absorption</em> (recurrent and useless), <em>Unproductive Expansion</em> (novel but useless), and <em>Useful Recurrence</em> (recurrent but useful). The decomposition makes explicit a distinction that AST already implies but does not name: recurrence is not a single phenomenon, and whether it is operationally desirable depends on which quadrant it occupies. Diagnostic validation across synthetic trajectories, scripted 2D navigation, and learned PPO policies shows that the four regimes correspond to distinct, otherwise-conflated failure modes. Online phase-aware shaping demonstrates that penalising Latent Absorption provides a phase-specific escape signal that improves sparse-reward discovery without adding dense progress reward, while LA-only shaping can redirect failure into Unproductive Expansion — motivating the full decomposition.</p>
+    <h3>Phase-Space Telemetry for Temporal Representation Trajectories</h3>
+    <p>An in-preparation generalisation that lifts the friction observable from human-information acquisition into a broader telemetry framework for temporal latent trajectories in learning agents. The framework distinguishes failure modes that conventional novelty-only, reward-only, or recurrence-only signals tend to conflate, and shows that the resulting telemetry is actionable rather than merely diagnostic.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> Lifts the AST friction observable into a reusable phase-space language for temporal representation dynamics across reinforcement learning more broadly. The original SI⊥ persists as a measurement that lives within one quadrant of a richer decomposition. The phase-space framing inherits AST's central commitment: the telemetry classifies the trajectory, the downstream task decides which quadrants are operationally acceptable. This is the clearest demonstration of the portability claim: an observable designed for human-information acquisition transferred, with its mathematical structure and its interpretive neutrality intact, into representation-level diagnosis of learning agents.</li>
+      <li><strong>Contribution to the arc:</strong> The clearest demonstration of the programme's portability claim — an observability primitive designed for human-information acquisition transfers, with its interpretive neutrality intact, into representation-level diagnosis of learning agents. The telemetry classifies the trajectory; the downstream task decides which regimes are operationally undesirable. (Mechanism and experimental detail withheld pending publication.)</li>
     </ul>
   </div>
 
@@ -706,9 +706,9 @@ code {
       <span class="badge purple">Adjacent — Controller Design</span>
     </div>
     <h3>Behavioural Control for Information-Seeking Dialogue: A Systematic Design Space</h3>
-    <p>An adjacent design study that takes seriously the question of which controller, once the assurance framework has admitted a category, should produce the next questioning behaviour. The report formalises cognitive interviewing as a multi-objective constrained control problem with AST observables as state inputs and protocol violations as constraints, and systematically maps seven candidate approaches across the design space: Representation Engineering with RL-controlled compositional concept weights, hybrid RepE-sensor / prompt-actuator architectures, enhanced RepE with orthogonalised bases (RePS), learned latent action codes (CoLA), Thompson-sampling style modulation, end-to-end RL prompt generation, and RAG-based dynamic prompting.</p>
+    <p>An adjacent design study addressing which controller, once a category has been admitted, should produce the next questioning behaviour. The study frames information-seeking dialogue as a constrained control problem with acquisition-state observables as inputs and protocol constraints as bounds, and surveys the space of candidate downstream controllers and the trade-offs each presents between interpretability, sample efficiency, fine-grained control, and stability.</p>
     <ul>
-      <li><strong>Contribution to the arc:</strong> The Compositional Assurance Theorem is controller-class agnostic by construction; its instantiations in the thesis use Q-learning and PID precisely because their admissibility conditions are well-established. The design space report is the open companion to this choice: it surveys the controllers that <em>could</em> sit downstream of the certification gate and the trade-offs each presents between interpretability, sample efficiency, fine-grained control, and stability. Empirical comparison across this design space is identified as a downstream research thread rather than a thesis chapter.</li>
+      <li><strong>Contribution to the arc:</strong> The assurance theorem is controller-class agnostic by construction; this study is its open companion, mapping the controllers that could sit beneath the certification boundary. Empirical comparison across this design space is identified as a downstream research thread rather than a thesis chapter.</li>
     </ul>
   </div>
 
@@ -719,7 +719,7 @@ code {
       <span class="badge blue">Adjacent — Human-side Instrumentation</span>
     </div>
     <h3>ITLI: An LLM-Derived Intrinsic Task-Load Index for Cognitive Load Estimation</h3>
-    <p>An exploratory, early-stage study on the human side of the loop, included here for completeness rather than as a load-bearing part of the thesis arc. Cognitive Load Theory identifies <em>element interactivity</em> — the number of interdependent information components held jointly in working memory — as the operational determinant of intrinsic load. ITLI sketches a way to operationalise element interactivity from textual information streams using an LLM to extract linguistically grounded features (entity count, relation count, temporal/conditional clauses, quantitative constraints, token complexity) mapped via a weighted integration to a 0–100 task-load index. Feature weighting and the final scalar mapping are open and pending validation.</p>
+    <p>An exploratory, early-stage study on the human side of the loop, included here for completeness rather than as a load-bearing part of the thesis arc. It sketches a way to estimate intrinsic cognitive load from textual information streams using an LLM as a feature extractor over cues grounded in Cognitive Load Theory, mapped to a scalar task-load index. The approach is open and pending validation.</p>
     <ul>
       <li><strong>Relationship to the arc:</strong> ITLI sits deliberately <em>outside</em> the externalisation principle that governs the three pillars: it estimates a cognitive-load-adjacent quantity rather than instrumenting an observable acquisition state, and its outputs are not bounded controller inputs in the formal sense, so it does not enter the assurance chain. For that reason it is treated as a future direction rather than a thesis contribution — a possible observability signal for variable-autonomy and adaptive presentation, pursued only if and when it matures. It is mentioned because it marks the boundary at which the present engineering-side framing would meet work requiring quantitative psycholinguistic claims.</li>
     </ul>
@@ -732,7 +732,7 @@ code {
       <span class="badge blue">Infrastructure</span>
     </div>
     <h3>High-Fidelity LLM-Based Interviewee Simulation for Task-Oriented Information Gathering</h3>
-    <p>A collaborative MSc project building a reactive, persona-configurable LLM interviewee simulator whose behavioural characteristics are empirically grounded in distributional statistics from real task-oriented human communication. The persona specification covers cooperativeness, per-category knowledge completeness, stress level, verbosity, and recall fidelity; the simulator exposes the same programmatic interface as the existing static corpus environment so that all PhD code operates without modification. Distributional fidelity is evaluated against literature-derived baselines through Wasserstein and KL divergences over a defined behavioural feature taxonomy.</p>
+    <p>A collaborative MSc project building a reactive, persona-configurable LLM interviewee simulator whose behavioural characteristics are grounded in distributional statistics from real task-oriented human communication. The simulator exposes the same programmatic interface as the existing static environment, so the research code operates without modification, and its behavioural fidelity is evaluated against literature-derived baselines.</p>
     <ul>
       <li><strong>Contribution to the arc:</strong> In any closed-loop study, the researcher implicitly builds both the controller and the plant. This project externalises the plant. The PhD's intellectual contributions stand independently of the simulator's fidelity, but a credible plant model is what makes adaptive integration-level evaluation rigorous rather than merely illustrative. The persona configuration is treated as an initial condition rather than a state variable; modelling persona <em>dynamics</em> in response to interviewer behaviour is identified as a frontier requiring validated computational models of interviewer–interviewee co-regulation, and is explicitly out of scope.</li>
     </ul>
@@ -780,8 +780,8 @@ code {
       </tr>
       <tr>
         <td><strong>Phase-Space Telemetry</strong></td>
-        <td>Generalising the AST friction observable into a four-regime diagnostic over response geometry</td>
-        <td>Trajectory-level telemetry decomposing temporal latent dynamics into productive, absorbed, unproductive, and recurrent regimes — with the task deciding which regimes are operationally undesirable</td>
+        <td>Generalising the friction observable into a richer diagnostic over trajectory geometry</td>
+        <td>Trajectory-level telemetry that distinguishes failure modes conventional signals conflate — with the task deciding which are operationally undesirable</td>
         <td>Sparse-reward RL diagnostics, sequence-model failure analysis, exploration-shaping in any agent with a latent representation</td>
       </tr>
       <tr>
@@ -815,7 +815,7 @@ code {
     <p><strong>1. Acquisition-State Telemetry as a controller-facing observability interface.</strong> AST is the first model-agnostic, after-exchange measurement contract that separates source-evidence state estimation, trajectory-level telemetry, and downstream control interpretation — exposing a prospective progress observable and a retrospective friction observable without committing to whether friction is operationally bad.</p>
     <p style="margin-top:0.6rem"><strong>2. Training-decoupled language grounding via a client-agnostic Signal Contract.</strong> LUCIFER is the first middleware to formalise a stable mathematical interface between streaming language and heterogeneous decision-makers, validated across learning and non-learning paradigms.</p>
     <p style="margin-top:0.6rem"><strong>3. Compositional assurance for the language-to-control admission boundary.</strong> The Certification Gate and Signal Contract, together with the Compositional Bounded-Input Assurance Theorem, are the first interface-level formal account of how runtime natural language may enter an assured control pipeline without collapsing downstream assurance into the semantics of language.</p>
-    <p style="margin-top:0.6rem"><strong>4. Phase-space decomposition of temporal representation trajectories.</strong> A generalisation of the AST friction observable into a novelty–yield phase space (PE / LA / UE / UR) that distinguishes failure modes which novelty-only, reward-only, or absorption-only metrics conflate — preserving AST's commitment that the telemetry classifies and the controller adjudicates.</p>
+    <p style="margin-top:0.6rem"><strong>4. Generalisation of trajectory telemetry to learning agents.</strong> A generalisation of the friction observable into a richer trajectory-level diagnostic that distinguishes failure modes conventional novelty- or reward-based signals conflate — preserving the commitment that the telemetry classifies and the controller adjudicates. (In preparation; detail withheld pending publication.)</p>
   </div>
 
   <div class="callout">
