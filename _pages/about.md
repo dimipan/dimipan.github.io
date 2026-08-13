@@ -1,5 +1,4 @@
 ---
-
 permalink: /
 title: "About"
 excerpt: ""
@@ -8,7 +7,6 @@ redirect_from:
 
 * /about/
 * /about.html
-
 ---
 
 I am a **Ph.D. researcher** at the [Digital Aviation Research and Technology Centre (DARTeC)](https://www.cranfield.ac.uk/centres/digital-aviation-research-and-technology-centre) at [Cranfield University](https://www.cranfield.ac.uk/), affiliated with the [School of Aerospace, Transport, and Manufacturing (SATM)](https://www.cranfield.ac.uk/themes/aerospace), under the supervision of [Prof. Weisi Guo](https://www.weisiguo.com). My work is supported by an EPSRC iCASE award with Thales UK (EP/X52475X/1).
